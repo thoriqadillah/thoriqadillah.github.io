@@ -1,0 +1,21 @@
+---
+import Link from "../components/Link.astro";
+import Navigation from "../components/Navigation.astro";
+---
+<nav class="mb-4 flex justify-between">
+  <div class="logo">
+    <Link href='/'>
+      <img src="logo.svg" alt="logo" width="150px">
+    </Link>
+  </div>
+  <div class="navigation my-auto">
+    <Navigation href='/'>Home</Navigation>
+    <Navigation href='/projects'>Projects</Navigation>
+    <Navigation href='/contact'>Contact</Navigation>
+  </div>
+  <div class="action flex my-auto">
+    <Link href='https://github.com/thoriqadillah'>
+      <img src="github.svg" alt="github" width="20px">
+    </Link>
+  </div>
+</nav>
