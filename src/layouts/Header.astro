@@ -2,20 +2,44 @@
 import Link from "../components/Link.astro";
 import Navigation from "../components/Navigation.astro";
 ---
-<nav class="mb-4 flex justify-between">
-  <div class="logo">
-    <Link href='/'>
-      <img src="logo.svg" alt="logo" width="150px">
-    </Link>
+<nav class="mb-4">
+  <div class="flex justify-between px-4 md:px-8 lg:px-12">
+    <div id="logo">
+      <Link href='/'>
+        <img src="logo.svg" alt="logo" width="150px">
+      </Link>
+    </div>
+    <div id="navigation" class="my-auto hidden lg:block">
+      <Navigation href='/'>Home</Navigation>
+      <Navigation href='/projects'>Projects</Navigation>
+      <Navigation href='/contact'>Contact</Navigation>
+    </div>
+    <div id="src" class="flex my-auto">
+      <Link href='https://github.com/thoriqadillah'>
+        <img src="github.svg" alt="github" width="20px">
+      </Link>
+      <img src="menu.svg" id="menu-button" class="mx-4 cursor-pointer lg:hidden" alt="menu">
+    </div>
   </div>
-  <div class="navigation my-auto">
-    <Navigation href='/'>Home</Navigation>
-    <Navigation href='/projects'>Projects</Navigation>
-    <Navigation href='/contact'>Contact</Navigation>
-  </div>
-  <div class="action flex my-auto">
-    <Link href='https://github.com/thoriqadillah'>
-      <img src="github.svg" alt="github" width="20px">
-    </Link>
+
+  <div id="menu" class="flex justify-center lg:hidden">
+    <div class="flex flex-col text-center">
+      <Navigation href='/' classname='my-2'>Home</Navigation>
+      <Navigation href='/projects' classname='my-2'>Projects</Navigation>
+      <Navigation href='/contact' classname='my-2'>Contact</Navigation>
+    </div>
   </div>
 </nav>
+
+<script>
+
+  const menuButton = document.querySelector('#menu-button') as HTMLElement
+  const menu = document.querySelector('#menu') as HTMLElement
+
+  let displayed = true
+  menuButton.onclick = () => {
+    menu.style.display = displayed ? 'none' : 'block'
+    displayed = !displayed
+  }
+  
+</script>
