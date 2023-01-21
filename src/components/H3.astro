@@ -1,0 +1,17 @@
+---
+const { color, classname } = Astro.props
+
+const textcolor = new Map([
+  ['main', 'text-main'],
+  ['second', 'text-second'],
+  ['dark', 'text-dark'],
+  ['black', 'text-black'],
+  ['bright', 'text-bright'],
+])
+
+const style = `text-3xl lg:text-3xl font-black ${ textcolor.get(color) } ${ classname }`
+---
+
+<h1 class={ style }>
+  <slot/>
+</h1>

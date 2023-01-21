@@ -1,8 +1,10 @@
 ---
-const { href } = Astro.props
+const { href, classname, newtab } = Astro.props
 
+const style = `text-bright hover:text-main hover:underline ${ classname }`
+const target = newtab ? '_blank' : ''
 ---
 
-<a href={ href } class="text-bright px-3 py-2 hover:text-main">
+<a href={ href } class={ style } target={ target }>
   <slot/>
 </a>

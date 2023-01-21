@@ -1,3 +1,29 @@
-<button class="px-5 py-2 font-bold rounded-md text-bright bg-main">
+---
+const { color, roundtype, classname } = Astro.props
+
+const bgcolor = new Map([
+  ['main', 'bg-main'],
+  ['second', 'bg-second'],
+  ['dark', 'bg-dark'],
+  ['black', 'bg-black'],
+  ['bright', 'bg-bright'],
+])
+
+const textcolor = bgcolor.get(color) === 'bg-bright' 
+                  || bgcolor.get(color) === 'bg-second' 
+                  || bgcolor.get(color) === 'bg-main' 
+                  ? 'text-black' 
+                  : 'text-bright'
+
+const rounded = new Map([
+  ['sm', 'rounded-sm'],
+  ['md', 'rounded-md'],
+  ['xl', 'rounded-xl'],
+  ['full', 'rounded-full'],
+])
+
+const style = `px-5 py-2 font-bold hover:bg-second ${ rounded.get(roundtype) } ${ bgcolor.get(color) } ${ textcolor } ${ classname }`
+---
+<button class={ style }>
   <slot/>
 </button>

@@ -1,7 +1,72 @@
 ---
 import Main from "../layouts/Main.astro"
+import H1 from "../components/H1.astro";
+import H3 from "../components/H3.astro";
+import Link from "../components/Link.astro";
+import Section from "../layouts/Section.astro";
+import Button from "../components/Button.astro";
 ---
 
-<Main title='Home'>
-	
+<Main title='Cat n Code | Home'>
+  <div class="px-4 md:px-8 lg:px-12 lg:my-8 max-w-7xl mx-auto flex flex-col lg:flex-row-reverse justify-around max-h-70">
+    <div class="mx-auto lg:mx-0">
+      <img src="cat.png" alt="cat" width="700px">
+    </div>
+    <div class="text-center lg:text-left my-8 lg:my-24">
+      <img src="logo.svg" class="mx-auto lg:mx-0" alt="logo" width="500px">
+      <H3 color='bright' classname="pt-2">Two things I like the most</H3>
+      <p class="text-bright mt-2 max-w-lg text-center mx-auto lg:text-left lg:mx-0">
+        I'm a junior backend developer based in Malang, Indonesia who love to try something new.
+        I love being backend developer because I love solving problem with coding
+      </p>
+      
+
+      <div class="mt-2 flex justify-center lg:justify-start">
+        <Link href='https://github.com/thoriqadillah' classname='px-3 lg:px-0 lg:pr-4 py-2'>
+          <img src="github.svg" alt="gihtub" width="20px">
+        </Link>
+        <Link href='https://linkedin.com/in/thoriqadillah' classname='px-3 lg:px-0 lg:pr-4 py-2'>
+          <img src="linkedin.svg" alt="gihtub" width="20px">
+        </Link>
+        <Link href='https://t.me/thoriqadillah' classname='px-3 lg:px-0 lg:pr-4 py-2'>
+          <img src="telegram.svg" alt="gihtub" width="22px">
+        </Link>
+      </div>
+
+      <Button color='main' roundtype='full' classname='mt-10 flex mx-auto lg:mx-0'>
+        CONNECT WITH ME
+        <span>
+          <img src="https://img.icons8.com/material-sharp/20/010002/long-arrow-right.png" class="ml-3 mt-1 hover:grow-0" alt="arrow">
+        </span>
+      </Button>
+    </div>
+  </div>
+
+  <Section emoji='👋' summary='Who am I?' title='Well, Hello There'>
+    <p class="text-bright my-2 mb-6">
+      I am a fresh graduate of Information System of Brawijaya University. 
+      While I am a fresh graduate, I come with no empty handed.
+      I have experience working on projects in backend development before. 
+      I also have done an internship, as well as a part time job during my college years 
+    </p>
+    <Link href='https://drive.google.com/file/d/1PDBybqkDrPfqI6z9tEa2u3mf418lCUUm/view?usp=sharing' classname='font-bold flex items-center' newtab='true'>
+      Get my resume
+      <span>
+        <img src="https://img.icons8.com/material-sharp/20/f8efd4/long-arrow-right.png" class="ml-3 mt-1 hover:grow-0" alt="arrow">
+      </span>
+    </Link>
+  </Section>
+  <Section emoji='⚡' summary='A Learner and Adaptive' title='All My Skills'>
+    <p class="text-bright my-2 mb-6">
+      All my skill range I gained from projects, internship program, and part time job that I took.
+      They are range from PHP, Node.js, Typescript, Go, to Java.
+      Furthermore, I am familiar with their corresponding framework such as Laravel, Express.js, Gin
+    </p>
+    <Link href='/projects' classname='font-bold flex items-center'>
+      See my projects 
+      <span>
+        <img src="https://img.icons8.com/material-sharp/20/f8efd4/long-arrow-right.png" class="ml-3 mt-1" alt="arrow">
+      </span>
+    </Link>
+  </Section>
 </Main>
