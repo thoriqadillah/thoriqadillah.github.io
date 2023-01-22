@@ -1,4 +1,9 @@
 ---
+interface Props {
+  href: string
+  classname?: string
+}
+
 const { href, classname } = Astro.props
 const { pathname } = Astro.url
 

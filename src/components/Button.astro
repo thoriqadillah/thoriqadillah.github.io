@@ -1,4 +1,10 @@
 ---
+interface Props {
+  color: string
+  roundtype: string
+  classname?: string
+}
+
 const { color, roundtype, classname } = Astro.props
 
 const bgcolor = new Map([

@@ -1,4 +1,10 @@
 ---
+interface Props {
+  href: string
+  classname?: string
+  newtab?: string
+}
+
 const { href, classname, newtab } = Astro.props
 
 const style = `text-bright hover:text-main hover:underline ${ classname }`

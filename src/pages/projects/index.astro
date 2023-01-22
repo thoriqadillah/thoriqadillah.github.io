@@ -1,7 +1,30 @@
 ---
 import Main from "../../layouts/Main.astro"
+import Section from "../../layouts/Section.astro";
+import Card from "../../components/Card.astro";
 ---
 
 <Main title='Cat n Code | Projects'>
-	
+	<Section emoji='🚧' summary='In My Spare Time' title="Projects That I Can Show Off">
+    <p class="text-white">Beside internship and part time job, I also have done multiple projects during my college years</p>
+  </Section>
+  <div class='max-w-7xl mt-10 mx-auto'>
+    <div class="md:grid md:grid-cols-2 lg:grid-cols-3 flex flex-col items-center">
+      <Card title='Essay Similarity' tags='php,machine learning' date="Aug 2022 - Des 2022" stakeholder="THESIS" href="/essay-similarity" classname="mx-4 mb-4">
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio porro, voluptatem numquam enim repudiandae ut consequatur, illo excepturi adipisci ipsa accusamus 
+      </Card>
+      <Card title='Wangsit' tags='php,laravel,livewire' date="Sep 2022 - Oct 2022" stakeholder="EMSI UB" href="/wangsit" classname="mx-4 mb-4">
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio porro, voluptatem numquam enim repudiandae ut consequatur, illo excepturi adipisci ipsa accusamus 
+      </Card>
+      <Card title='Terminal Animation' tags='golang' date="Sep 2022" stakeholder="PERSONAL" href="/terminal-animation" classname="mx-4 mb-4">
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio porro, voluptatem numquam enim repudiandae ut consequatur, illo excepturi adipisci ipsa accusamus 
+      </Card>
+      <Card title='SIAM Questionnaire Bot' tags='deno,typescript' date="May 2022" stakeholder="PERSONAL" href="/siam-questionnaire-bot" classname="mx-4 mb-4">
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio porro, voluptatem numquam enim repudiandae ut consequatur, illo excepturi adipisci ipsa accusamus 
+      </Card>
+      <Card title='Military Logistic Web App' tags='php,laravel' date="Jul 2021 - Aug 2021" stakeholder="TNI AD SURABAYA" href="/military-logistic-web-app" classname="mx-4 mb-4">
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio porro, voluptatem numquam enim repudiandae ut consequatur, illo excepturi adipisci ipsa accusamus 
+      </Card>
+    </div>
+  </div>
 </Main>
