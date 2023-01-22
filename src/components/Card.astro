@@ -13,15 +13,15 @@ import H3 from "./H3.astro";
 import Link from "./Link.astro"
 
 const cardTags = tags?.split(',')
-const style = `p-5 max-w-3xl md:max-w-lg lg:max-w-sm border-2 border-grey rounded-lg hover:border-bright ${ classname }`
+const style = `p-5 max-w-fill border-2 border-grey rounded-lg hover:border-bright ${ classname }`
 ---
 
-<Link href={ href } classname="no-underline hover:no-underline">
+<Link href={ href } classname="no-underline hover:no-underline h-">
   <div class={ style }>
     <p class="text-bright text-sm font-bold inline border border-bright rounded-md p-2">{ stakeholder }</p>
     <H3 color='bright' classname='mt-3'>{ title }</H3>
     <p class="text-gray-400 text-sm">{ date }</p>
-    <p class="text-white mt-3">
+    <p class="text-white mt-3 h-20 md:h-24">
       <slot/>
     </p>
 
