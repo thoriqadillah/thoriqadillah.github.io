@@ -1,0 +1,22 @@
+---
+const { classname } = Astro.props
+
+import Link from "../components/Link.astro";
+
+const style = `flex ${ classname }`
+---
+
+<div class={ style }>
+  <Link href='https://github.com/thoriqadillah' classname='pr-4 py-2' newtab='1'>
+    <img src="github.svg" alt="gihtub" width="20px" title="My Github profil">
+  </Link>
+  <Link href='https://linkedin.com/in/thoriqadillah' classname='pr-4 py-2' newtab='1'>
+    <img src="linkedin.svg" alt="gihtub" width="20px" title="My LinkedIn profil">
+  </Link>
+  <Link href='https://t.me/thoriqadillah' classname='pr-4 py-2' newtab='1'>
+    <img src="telegram.svg" alt="gihtub" width="22px" title="My Telegram contact">
+  </Link>
+  <Link href='mailto:thoriqadillah59@gmail.com'>
+    <img src="https://img.icons8.com/ios-filled/22/f8efd4/secured-letter--v1.png" class="py-2" title="My Email"/>
+  </Link>
+</div>

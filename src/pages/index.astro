@@ -4,6 +4,7 @@ import H3 from "../components/H3.astro";
 import Link from "../components/Link.astro";
 import Section from "../layouts/Section.astro";
 import Button from "../components/Button.astro";
+import Socials from "../layouts/Socials.astro";
 ---
 
 <Main title='Cat n Code | Thoriq Adillah'>
@@ -18,12 +19,7 @@ import Button from "../components/Button.astro";
         I'm a junior backend developer based in Malang, Indonesia who love to try something new.
         I love being backend developer because I love solving problem with coding
       </p>
-      <Link href='/contact' classname='hover:no-underline'>
-        <Button color='main' roundtype='full' classname='flex mx-auto lg:mx-0'>
-          CONNECT WITH ME
-          <img src="https://img.icons8.com/material-sharp/20/010002/long-arrow-right.png" class="ml-3 mt-1 hover:grow-0" alt="arrow">
-        </Button>
-      </Link>
+      <Socials classname='justify-center lg:justify-start'/>
     </div>
   </div>
 
