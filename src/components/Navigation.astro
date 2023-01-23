@@ -7,7 +7,7 @@ interface Props {
 const { href, classname } = Astro.props
 const { pathname } = Astro.url
 
-const setCurrent = pathname === href ? 'font-bold text-second' : 'hover:text-main'
+const setCurrent = pathname === href ? 'font-bold text-main' : 'hover:text-second'
 const style = `text-bright px-3 py-2 ${ classname } ${ setCurrent }`
 ---
 

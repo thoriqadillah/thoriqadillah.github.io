@@ -8,16 +8,16 @@ interface Props {
 const { color, roundtype, classname } = Astro.props
 
 const bgcolor = new Map([
-  ['main', 'bg-main'],
   ['second', 'bg-second'],
+  ['main', 'bg-main'],
   ['dark', 'bg-dark'],
   ['black', 'bg-black'],
   ['bright', 'bg-bright'],
 ])
 
 const textcolor = bgcolor.get(color) === 'bg-bright' 
-                  || bgcolor.get(color) === 'bg-second' 
                   || bgcolor.get(color) === 'bg-main' 
+                  || bgcolor.get(color) === 'bg-second' 
                   ? 'text-black' 
                   : 'text-bright'
 
@@ -28,7 +28,7 @@ const rounded = new Map([
   ['full', 'rounded-full'],
 ])
 
-const style = `px-5 py-2 font-bold hover:bg-second ${ rounded.get(roundtype) } ${ bgcolor.get(color) } ${ textcolor } ${ classname }`
+const style = `px-5 py-2 font-bold hover:bg-main ${ rounded.get(roundtype) } ${ bgcolor.get(color) } ${ textcolor } ${ classname }`
 ---
 <button class={ style }>
   <slot/>
