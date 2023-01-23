@@ -1,4 +1,6 @@
 ---
+import Link from "./Link.astro";
+
 const { pathname } = Astro.url
 
 let breadcrum = pathname.split('/')
@@ -13,8 +15,6 @@ let breadcrum = pathname.split('/')
 const to = breadcrum
   .map(el => '/' + el.replaceAll(' ', '-'))
   .map((el, i, arr) => i-1 > -1 ? (arr[i-1] + el).toLowerCase() : el.toLowerCase())
-
-import Link from "./Link.astro";
 ---
 
 <div class="px-4 md:px-20 lg:px-60 mt-12">
@@ -23,11 +23,11 @@ import Link from "./Link.astro";
       breadcrum.map((bread, i) => {
         return i-1 > -1 
           ? <img src="https://img.icons8.com/material-sharp/16/f8efd4/chevron-right.png" width="16px" class="inline mr-4"/>
-            <Link href={ to[i] } classname='hover:no-underline'>
-              <p class="text-bright text-sm font-bold inline mr-4 hover:text-main">{ bread }</p>
+            <Link href={ to[i] } classname={ i == to.length-1 ? 'hover:no-underline pointer-events-none' : 'hover:no-underline' }>
+              <p class={ i == to.length-1 ? "text-main text-sm font-bold inline mr-4" : "text-bright text-sm font-bold inline mr-4 hover:text-main" }>{ bread }</p>
             </Link> 
           : <Link href={ to[i] } classname='hover:no-underline'>
-              <p class="text-bright text-sm font-bold inline mr-4 hover:text-main">{ bread }</p>
+              <p class={ i == to.length-1 ? "text-main text-sm font-bold inline mr-4" : "text-bright text-sm font-bold inline mr-4 hover:text-main" }>{ bread }</p>
             </Link>
         })
     }
