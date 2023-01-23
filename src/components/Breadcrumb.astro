@@ -1,19 +1,18 @@
 ---
 const { pathname } = Astro.url
-let breadcrum = pathname
-  .split('/')
+
+let breadcrum = pathname.split('/')
   .filter(el => el !== '')
   .map(el => el.replaceAll('-', ' '))
+  .map(el => {
+    return !el.includes(' ') 
+      ? el[0].toUpperCase() + el.substring(1)
+      : el.split(' ').map(word => word[0].toUpperCase() + word.substring(1)).join(' ')
+  })
 
 const to = breadcrum
   .map(el => '/' + el.replaceAll(' ', '-'))
-  .map((el, i, arr) => i-1 > -1 ? arr[i-1] + el : el)
-
-breadcrum = breadcrum.map(el => {
-  return !el.includes(' ') 
-    ? el[0].toUpperCase() + el.substring(1)
-    : el.split(' ').map(word => word[0].toUpperCase() + word.substring(1)).join(' ')
-})
+  .map((el, i, arr) => i-1 > -1 ? (arr[i-1] + el).toLowerCase() : el.toLowerCase())
 
 import Link from "./Link.astro";
 ---
