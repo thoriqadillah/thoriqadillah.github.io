@@ -7,3 +7,56 @@ tags: php,laravel
 description: A plugin that hopefully help teachers to auto grade student answer by comparing the similarity of student’s answer and teacher’s answer key with machine learning
 ---
 
+import SimilarityInput from '@components/SimilarityInput.astro'
+
+## The Motivation
+Essay is one of the question type that requires deeper understanding when answering and evaluating the answer. So, the more answer that needs to be evaluated, the more work need to be put in while evaluating by the teacher. And that may leads to decreasing the concistency of the assesment from the teacher. But thanks to Learning Management System, we can automate some of the assesment process and less hassle for the teacher.
+
+Since COVID-19 pandemic back in 2019, many sectors turn their working behavior from working on-site to working remotely, including in academic sector. And that is one of the reason the increasing popularity of LMS such as Moodle. As of 2020, Moodle has 190 million users, and making it one of the biggest LMS in the world. Despite the popularity, Moodle still lacking the automatic assesment for the essay question type. That is the reason why this Moodle plugin is created
+
+## Solution
+There is some common way to evaluating essay answer, which is checking if the answer is containing some of the keyword from 'answer key' or not. In another word, checking the similarity between the answer given by student and answer key provided by the teacher. The way we can do that automatically is using machine learning. The most common method to check the similarity between two text (let's call it document from this point onward) is using [cosine similarity](https://en.wikipedia.org/wiki/Cosine_similarity). So I made it
+
+## Implementation
+The way this works is pretty simple, we need to take two documents and then calculate the similarity using cosine similarity. The answer key will be made by teacher during the making of the question, and the answer will be taken from the student answer. The code for cosine similarity is pretty simple. 
+```php
+<?php
+
+class cosine_similarity {
+
+  private function product($v1, $v2) {
+    $prod = 0.0;
+    foreach ($v1 as $i => $xi) {
+      $prod += $xi * $v2[$i];
+    }
+
+    return $prod;
+  }
+
+  private function magintude($vect) {
+    $magnitude = 0.0;
+    foreach ($vect as $v) {
+      $magnitude += $v * $v;
+    }
+
+    return sqrt($magnitude);
+  }
+  
+  public function get_similarity($v1, $v2) {
+    $dot = $this->product($v1, $v2);
+    $magnitude = $this->magintude($v1) * $this->magintude($v2);
+
+    return $magnitude == 0 ? 0 : $dot / $magnitude;
+  }
+}
+```
+Because I have never touched machine learning or event think about it, of course I'm not taking any credit from the code above. The code above was taken from this [library](https://github.com/angeloskath/php-nlp-tools). Because this was the first time I'm making a plugin, so I don't know how to include a library in a plugin. After I tried multiple times and failed, I figured I just copy the code itself.
+
+But we're not done yet. For the cosine similarity to perform better, we need to do some pre-processing first. This step includes text normalization, tokenizing, stopword removal, stemming, and weighting. 
+- **Text normalization**, simply making the entire document lower case
+- **Tokenizing**, making each word in the document a vector (it's just an associative array, the key is the word/term of the document, the value is the occurrence of the word in the document)
+- **Stopword removal**, before we count the occurrence of the word, we need to remove stopword. A stopword is a word that barely have any meaning, such as "a", "is", "the", etc. This process can make the similarity calculation because we remove the noise that has almost nothing correlation of the document itself
+- **Stemming**, after that we need to stem or turn the word to its root (i.e running => run) so that the word we are going to compare are in the same class
+
+Let's test it!
+<SimilarityInput/>
