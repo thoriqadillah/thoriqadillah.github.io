@@ -14,8 +14,8 @@ interface Props {
 const { frontmatter }  = Astro.props
 
 import Main from './Main.astro'
-import H1 from '../components/H1.astro'
-import Breadcrumb from '../components/Breadcrumb.astro';
+import H1 from '@components/H1.astro'
+import Breadcrumb from '@components/Breadcrumb.astro';
 ---
 
 <Main title={ 'Projects - ' + frontmatter.title } type="article" description={ frontmatter.description }>
@@ -46,6 +46,8 @@ import Breadcrumb from '../components/Breadcrumb.astro';
           prose-h1:text-6xl prose-h1:text-bright 
           prose-h2:text-4xl prose-h2:mt-6 prose-h2:mb-3 prose-h2:text-bright 
           prose-h3:text-2xl prose-h3:mt-6 prose-h3:mb-3 prose-h3:text-bright 
+          prose-a:text-second
+          prose-ul:text-white
           prose-pre:rounded-md">
         <slot/>
       </article>
