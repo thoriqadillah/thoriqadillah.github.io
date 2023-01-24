@@ -65,18 +65,22 @@ export default class IDStemmer implements Stemmer {
     return word;
   } 
 
+  //TODO: implement this
   private delInflectionSuffixes(word: string): string {
     return word
   }
 
+  //TODO: implement this
   private delDerivationSuffixes(word: string): string {
     return word
   }
 
+  //TODO: implement this
   private checkPrefixDisallowedSuffixes(word: string): boolean {
     return true
   }
 
+  //TODO: implement this
   private delDerivationPrefix(word: string): string {
     return word
   }

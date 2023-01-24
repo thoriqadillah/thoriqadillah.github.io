@@ -1,4 +1,9 @@
 import type { Vector } from "../types/vector"
+import type { Stemmer } from "./stemmers/stemmer"
+
+import ENStemmer from "./stemmers/lang/en/en"
+import IDStemmer from "./stemmers/lang/id/id"
+
 import Stopword from "./stopwords/stopword"
 
 export default class Tokenizer {
@@ -17,10 +22,18 @@ export default class Tokenizer {
       .trim()
   }
 
+  private stemmer(): Stemmer | undefined {
+    switch (this.lang) {
+      case 'en': 
+        return new ENStemmer()
+      case 'id': 
+        return new IDStemmer()
+    }
+  }
+
   public tokenize(str: string): string[] {
     let token = this.normalize(str).split(' ')
-    token = new Stopword(this.lang).filter(token)
-    console.log(token);
+    token = new Stopword(this.lang).filter(token, this.stemmer())
     
     return token
   }

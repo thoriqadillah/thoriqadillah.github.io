@@ -1,3 +1,3 @@
 export interface Stemmer {
-  stem(): string
+  stem(word: string): string
 }

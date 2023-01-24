@@ -26,9 +26,10 @@ export default class Stopword {
     const stopwords = this.getStopwords()
     token = token.filter(el => stopwords.indexOf(el) == -1)
     
-    //TODO: implement stemming
-    for (let i = 0; i < token.length; i++) {
-      token[i] = stemmer?.stem(token[i]) ?? token[i]
+    if (stemmer !== undefined) {
+      for (let i = 0; i < token.length; i++) {
+        token[i] = stemmer.stem(token[i])
+      }
     }
     
     return token
