@@ -53,10 +53,11 @@ class cosine_similarity {
 Because I have never touched machine learning or event think about it, of course I'm not taking any credit from the code above. The code above was taken from this [library](https://github.com/angeloskath/php-nlp-tools). Because this was the first time I'm making a plugin, so I don't know how to include a library in a plugin. After I tried multiple times and failed, I figured I just copy the code itself.
 
 But we're not done yet. For the cosine similarity to perform better, we need to do some pre-processing first. This step includes text normalization, tokenizing, stopword removal, stemming, and weighting. 
-- **Text normalization**, simply making the entire document lower case
+- **Text normalization**, simply making the entire document lower case, removing punctuation and special characters, trimming unused whitespace
 - **Tokenizing**, making each word in the document a vector (it's just an associative array, the key is the word/term of the document, the value is the occurrence of the word in the document)
 - **Stopword removal**, before we count the occurrence of the word, we need to remove stopword. A stopword is a word that barely have any meaning, such as "a", "is", "the", etc. This process can make the similarity calculation because we remove the noise that has almost nothing correlation of the document itself
 - **Stemming**, after that we need to stem or turn the word to its root (i.e running => run) so that the word we are going to compare are in the same class
+- **Wheighting**, finally we do a weighting with [TF-IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf)
 
 Let's test it!
 <SimilarityInput/>

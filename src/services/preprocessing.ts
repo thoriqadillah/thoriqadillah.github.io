@@ -1,5 +1,6 @@
 import type { Vector } from '../types/vector'
 import Tokenizer from './tokenizer'
+import TFIDF from './transformers/TFIDF'
 
 export default class Preprocessing {
   
@@ -22,7 +23,8 @@ export default class Preprocessing {
         if (!vectors[i][word]) vectors[i][word] = 0
       }
     }
-    
+
+    vectors = new TFIDF(vectors).transform()
     return vectors
   }
 
