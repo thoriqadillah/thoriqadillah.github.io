@@ -22,10 +22,15 @@ export default class Stopword {
     }
   }
 
-  public filter(token: string[]) {
+  public filter(token: string[], stemmer?: Stemmer) {
     const stopwords = this.getStopwords()
-    return token.filter(el => stopwords.indexOf(el) == -1)
-
+    token = token.filter(el => stopwords.indexOf(el) == -1)
+    
     //TODO: implement stemming
+    for (let i = 0; i < token.length; i++) {
+      token[i] = stemmer?.stem(token[i]) ?? token[i]
+    }
+    
+    return token
   }
 }

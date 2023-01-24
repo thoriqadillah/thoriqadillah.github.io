@@ -1,4 +1,4 @@
-export default function get(): string[] {
+export default function stopwords(): string[] {
   return [
     "0o",
     "0s",
