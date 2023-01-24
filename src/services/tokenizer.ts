@@ -1,6 +1,13 @@
 import type { Vector } from "../types/vector"
+import Stopword from "./stopwords/stopword"
 
 export default class Tokenizer {
+
+  private lang: string
+
+  constructor(lang: string) {
+    this.lang = lang
+  }
 
   private normalize(str: string): string {
     return str.toLowerCase()
@@ -11,7 +18,11 @@ export default class Tokenizer {
   }
 
   public tokenize(str: string): string[] {
-    return this.normalize(str).split(' ')
+    let token = this.normalize(str).split(' ')
+    token = new Stopword(this.lang).filter(token)
+    console.log(token);
+    
+    return token
   }
 
   public vectorize(token: string[]): Vector {

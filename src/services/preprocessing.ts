@@ -4,10 +4,10 @@ import TFIDF from './transformers/TFIDF'
 
 export default class Preprocessing {
   
-  public static preprocess(documents: string[]): Vector[] {
-    const tokenizer = new Tokenizer()
+  public static preprocess(documents: string[], lang: string): Vector[] {
+    const tokenizer = new Tokenizer(lang)
+    
     let merged: string[] = []
-
     let vectors: Vector[] = []
 
     for (const document of documents) {
