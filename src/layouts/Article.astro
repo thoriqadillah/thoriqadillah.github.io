@@ -63,13 +63,13 @@ const prev = frontmatter.prev?.toLowerCase().split(' ').join('-') ?? ''
 
   <div class="flex px-4 md:max-w-4xl lg:max-w-5xl mx-auto">
     <div id="prev-section" class="p-3 border border-grey hover:border-bright rounded-md mt-24 text-right mr-auto w-48">
-      <Link href={ prev } classname='hover:no-underline'>
+      <Link href={ '/projects/' + prev } classname='hover:no-underline'>
         <H4 color="bright">Previous</H4>
         <p id="prev" class="text-gray-400 text-sm">{ frontmatter.prev }</p>
       </Link>
     </div>
     <div id="next-section" class="p-3 border border-grey hover:border-bright rounded-md mt-24 ml-auto w-48">
-      <Link href={ next } classname='hover:no-underline'>
+      <Link href={ '/projects/' + next } classname='hover:no-underline'>
         <H4 color="bright">Next</H4>
         <p id="next" class="text-gray-400 text-sm">{ frontmatter.next }</p>
       </Link>

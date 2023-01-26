@@ -10,7 +10,6 @@ interface Props {
 
 const { title, description, type } = Astro.props
 const url = Astro.url
-const as = Astro.site
 ---
 
 <html lang="en">
@@ -18,14 +17,14 @@ const as = Astro.site
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
+		<meta name="generator" content={ Astro.generator } />
 
 		<!-- open graph general -->
 		<meta property="og:title" content={ title } />
 		<meta property="og:description" content= { description } />
 		<meta property="og:url" content={ url } />
 		<meta property="og:locale" content="en_US" />
-		<meta property="og:site_name" content="catncode.com">
+		<meta property="og:site_name" content="https://thoriqadillah.github.io/cat-n-code">
 		<meta property="og:type" content={ type }>
 
 		<title>{title}</title>

@@ -9,8 +9,9 @@ const { href, classname, newtab } = Astro.props
 
 const style = `text-bright hover:text-second hover:underline ${ classname }`
 const target = newtab ? '_blank' : ''
+const link =  href.includes('https://') || href.includes('mailto') ? href : '/cat-n-code' + href 
 ---
 
-<a href={ href } class={ style } target={ target }>
+<a href={ link } class={ style } target={ target }>
   <slot/>
 </a>

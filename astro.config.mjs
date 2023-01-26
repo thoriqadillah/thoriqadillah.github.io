@@ -8,6 +8,8 @@ import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://thoriqadillah.github.io',
+  base: '/cat-n-code/',
   integrations: [
     tailwind(), 
     mdx()
