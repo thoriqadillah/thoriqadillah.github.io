@@ -6,7 +6,7 @@ import Section from "@layouts/Section.astro";
 import Socials from "@layouts/Socials.astro";
 ---
 
-<Main title='Cat n Code | Thoriq Adillah - Home' type="website" description="I'm a junior backend developer based in Malang who love to try something new. I love being backend developer because I love solving problem with coding">
+<Main title='Cat n Code | Thoriq Adillah' type="website" description="I'm a junior backend developer based in Malang who love to try something new. I love being backend developer because I love solving problem with coding">
   <div class="px-4 md:px-8 lg:px-12 lg:my-8 max-w-7xl mx-auto flex flex-col lg:flex-row-reverse justify-around max-h-70">
     <div class="mx-auto lg:mx-0">
       <img src="cat.png" alt="cat" class="w-[500px] lg:w-[700px]">
@@ -22,7 +22,7 @@ import Socials from "@layouts/Socials.astro";
     </div>
   </div>
 
-  <Section emoji='👋' summary='Who am I?' title='Well, Hello There'>
+  <Section emoji='👋' summary='Who am I?' title='Well, Hello There' classname='mt-48'>
     <p class="text-white my-2 mb-6">
       I am a fresh graduate of Information System of Brawijaya University. 
       While I am a fresh graduate, I come with no empty handed.
@@ -37,14 +37,14 @@ import Socials from "@layouts/Socials.astro";
     </Link>
   </Section>
   
-  <Section emoji='⚡' summary='A Learner and Adaptive' title='All My Skills'>
+  <Section emoji='⚡' summary='A Learner and Adaptive' title='All My Skills' classname='mt-48'>
     <p class="text-white my-2">
       All my skill range I gained from projects, internship program, and part time job that I took.
       They are range from PHP, Node.js, Typescript, Go, to Java.
       Furthermore, I am familiar with their corresponding framework such as Laravel, Express.js, Gin
     </p>
 
-    <div class="my-6 flex">
+    <div class="my-6 grid grid-cols-6 md:flex">
       <img src="https://img.icons8.com/dusk/64/null/php-logo.png" class="mr-4" width="48px"/>
       <img src="https://img.icons8.com/fluency/64/null/node-js.png" class="mr-3" width="48px"/>
       <img src="https://img.icons8.com/fluency/64/null/typescript--v1.png" class="mr-3" width="48px"/>
