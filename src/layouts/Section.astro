@@ -6,13 +6,15 @@ interface Props {
   classname?: string
 }
 
-const { emoji, summary, title } = Astro.props
+const { emoji, summary, title, classname } = Astro.props
 
 import H2 from "@components/H2.astro";
 
+const style = `px-4 md:px-20 lg:px-60 ${ classname }`
+
 ---
 
-<div class="px-4 md:px-20 lg:px-60 pt-48">
+<div class={ style }>
   <div class="max-w-3xl mx-auto">
     <H2 color="bright" classname="mb-2">{ emoji }</H2>
     <p class="font-bold text-white">{ summary }</p>
