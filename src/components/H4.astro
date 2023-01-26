@@ -1,0 +1,22 @@
+---
+interface Props {
+  color: string
+  classname?: string
+}
+
+const { color, classname } = Astro.props
+
+const textcolor = new Map([
+  ['second', 'text-second'],
+  ['main', 'text-main'],
+  ['dark', 'text-dark'],
+  ['black', 'text-black'],
+  ['bright', 'text-bright'],
+])
+
+const style = `text-xl font-black ${ textcolor.get(color) } ${ classname }`
+---
+
+<h1 class={ style }>
+  <slot/>
+</h1>
