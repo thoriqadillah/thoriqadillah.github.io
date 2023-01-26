@@ -7,10 +7,12 @@ interface Props {
 const { href, classname } = Astro.props
 const { pathname } = Astro.url
 
-const setCurrent = pathname === '/cat-n-code' + href + '/' ? 'font-bold text-main' : 'hover:text-second'
+const setCurrent = pathname.substring(11) == href + (href.length !== 1 ? '/' : '') ? 'font-bold text-main' : 'hover:text-second'
 const style = `text-bright px-3 py-2 ${ classname } ${ setCurrent }`
+
+import Link from './Link.astro'
 ---
 
-<a href={ '/cat-n-code' + href } class={ style }>
+<Link href={ href } classname={ style }>
   <slot/>
-</a>
+</Link>
