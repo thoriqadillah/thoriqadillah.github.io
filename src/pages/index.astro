@@ -3,7 +3,9 @@ import Main from "@layouts/Main.astro"
 import H3 from "@components/H3.astro";
 import Link from "@components/Link.astro";
 import Section from "@layouts/Section.astro";
-import Socials from "@layouts/Socials.astro";
+import Tag from "@components/Tag.astro";
+
+const tags = 'php,laravel,node,express,typescript,golang,gin,java'.split(',')
 ---
 
 <Main title='Cat n Code | Thoriq Adillah' type="website" description="I'm a junior backend developer based in Malang who love to try something new. I love being backend developer because I love solving problem with coding">
@@ -18,7 +20,11 @@ import Socials from "@layouts/Socials.astro";
         I'm a junior backend developer based in Malang, Indonesia who love to try something new.
         I love being backend developer because I love solving problem with coding
       </p>
-      <Socials classname='justify-center lg:justify-start'/>
+      <p class="text-gray-200 text-sm mb-1">I work with</p>
+      <div class="mx-auto flex flex-wrap justify-center lg:justify-start">
+        { tags.map(tag => <Tag classname='my-1 w-fit mx-2 lg:mx-0 lg:mr-2'>{ tag }</Tag>) }
+      </div>
+      
     </div>
   </div>
 
