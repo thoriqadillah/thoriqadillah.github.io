@@ -2,10 +2,31 @@
 layout: ../../layouts/Article.astro
 title: Siam Questionnaire Bot
 stakeholder: PERSONAL
-date: 23 Jan 2023
-tags: deno,typescript
+date: 27 Jan 2023
+tags: deno,typescript,node js
 description: A CLI app that invoke a bot to automates answering tideous teacher questionnaires in SIAM UB. Written in Deno.js and Typescript with Puppeteer.js as a headless chrome bot library
+sourceCode: https://github.com/thoriqadillah/siam-questionnaire-bot/
 prev: Terminal Animation
+
 ---
 
-Rome is being built. In the meantime, visit [the repo](https://github.com/thoriqadillah/siam-questionnaire-bot) instead
+import Vid from '../../components/Vid.astro'
+
+## The Motivation
+There is this questionnaire about evaluation of professor teaching performance that needs to be filled at the end of each semester. This questionnaire appears when the final score for a course is out, and is required to be filled if you want to see the score. It is useful and all, but at some point it is become a chore because this questionnaire has 25 questions for a course, and if we take 8 course in a semester that means 200 questions that needs to be filled. Plus, it is so boring to take the same questionnaire for the 4th time or so, and at some point I was becoming more impatience the more I took the questionnaire.
+
+## The Solution
+I need something to automate this tideos task, and nothing beats a bot to do so. But the question is, how to make a bot that can do such thing, to do a questionnaire? While the problem I was facing appeared back in 4th semester, I had no clue to automate the task. But lucky me, my first internship at cmlabs helps me a lot. I didn't even know that what have I built is possible. In general, cmlabs is a SEO company that provides service for improving SEO for website company. For the intern, I was doing refactoring and maintenance of their SEO tools. It was nothing special. But, the one that made me so interested was the web scraping and web crawling
+
+As an intern, of course I didn't know that such thing is possible. That was like a magic. And I thought of myself, "hey, I could build anything with this technique". I was thingking making a browser extension for reminder of assignment submission because sometimes when I submit an assignment, I forgot to press a submit button, and the assignment was only counted for draft only, which is annoying because the system think that I have not submit my assignment. I don't know why I thought that, but that is my initial thought. 
+
+## The Implementation
+After I finished my intern, I was ready to build something. But at that time, after some thought, the browser extension thing is not really worth it. After some time, the problem about that tideous questionnaire is appeared again (the first version of the bot was build 3 days before the final score is out). The first implementation was built with [Express.js](https://expressjs.com/). I know, it is not very suitable for the task, because I learn that cmlabs is using Express.js also, so that is my initial thought to built the bot. 
+
+The way it works is simple, you make one or more API endpoint to invoke the bot to scrap the web. First, command the bot to go to SIAM, and then login, and then go to each proffesor links to fill the questionnaire, and then do some action to the questionnaire form like choosing a selection, writing message, etc. Simple right? But how to make a bot? There is a library called [puppeteer](https://www.npmjs.com/package/puppeteer) that can be used to automate a browser to do some task. Usually, this libary is used to do a UI testing, but of course can be used to do something else like this. 
+
+The problem with my first approach using API endpoint to invoke a bot feels weird. I don't really like it, and was not proud enough to show off to my friend. And unfortunately, the source code of the first implementation was not in my github repo, it was in my locale machine, and is gone by now because it's in my SSD that I never used by now (I was stupid for buying more SSD without researching about my laptop first. My laptop only has one NVME slot and already filled, so it was a waste for buying another NVME SSD).
+
+Anyway, after some time passed. I was thingking to update the code. At the time I was so intrigued about [Deno](https://deno.land/). Because I need my code to use by other people without install something, so I need to make it an executable, and Deno capable of that. But then I realized that Deno is different with Node, meaning the main library that I use may not be there. But fortunately, some smart people made a Deno version of puppeteer. Coding with deno is no different than coding in normal Node. What I love about deno that it is minimalist, I don't need to setup typescript, it just works. This time, I built CLI to invoke the bot with some command. Every command that I made is listed on the project repo. Below is the result for the project
+
+<Vid src='/siam-bot-result.mp4'/>

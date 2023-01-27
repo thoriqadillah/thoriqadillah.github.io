@@ -1,0 +1,11 @@
+---
+interface Props {
+  src: string
+}
+
+const { src } = Astro.props
+---
+
+<video controls class="max-w-xl rounded-md">
+  <source src={ '/cat-n-code/article-assets/' + src }>
+</video>
