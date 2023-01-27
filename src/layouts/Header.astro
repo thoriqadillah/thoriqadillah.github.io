@@ -1,6 +1,7 @@
 ---
 import Link from "@components/Link.astro";
 import Navigation from "@components/Navigation.astro";
+import Socials from "./Socials.astro";
 ---
 <nav class="mb-4 max-w-7xl mx-auto relative">
   <div class="flex justify-between px-4 md:px-8 lg:px-12">
@@ -14,17 +15,16 @@ import Navigation from "@components/Navigation.astro";
       <Navigation href='/projects'>Projects</Navigation>
     </div>
     <div id="src" class="flex my-auto">
-      <Link href='https://github.com/thoriqadillah/cat-n-code' newtab='1'>
-        <img src="https://img.icons8.com/material-sharp/24/f8efd4/github.png" width="24px" title="Source code of this website"/>
-      </Link>
+      <Socials classname='hidden lg:flex'/>
       <img src="https://img.icons8.com/material-sharp/24/f8efd4/menu--v1.png" id="menu-button" class="ml-4 cursor-pointer lg:hidden" alt="menu"/>
     </div>
   </div>
-
+  
   <div id="menu" class="hidden absolute inset-x-0">
-    <div class="flex flex-col text-center bg-black">
+    <div class="flex flex-col text-center bg-black border-b-2 border-grey">
       <Navigation href='/' classname='my-2'>Home</Navigation>
       <Navigation href='/projects' classname='my-2'>Projects</Navigation>
+      <Socials classname='mx-auto my-4'/>
     </div>
   </div>
 </nav>
