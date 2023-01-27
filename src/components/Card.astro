@@ -9,8 +9,10 @@ interface Props {
 }
 
 const { title, tags, date, classname, stakeholder, href } = Astro.props
+
 import H3 from "./H3.astro";
 import Link from "./Link.astro"
+import Tag from "./Tag.astro"
 
 const style = `p-5 max-w-fill border-2 border-grey rounded-lg hover:border-bright ${ classname }`
 ---
@@ -25,8 +27,8 @@ const style = `p-5 max-w-fill border-2 border-grey rounded-lg hover:border-brigh
     </p>
 
     <div class="mt-10 mb-5 overflow-x-scroll py-4">
-      {tags.split(',').map(tag => {
-        return <span class="text-gray-200 bg-grey rounded-full px-3 py-2 mr-2 text-sm">#{ tag }</span>
+      {tags.split(',').map(text => {
+        return <Tag>{ text }</Tag>
       })}
     </div>
   </div>

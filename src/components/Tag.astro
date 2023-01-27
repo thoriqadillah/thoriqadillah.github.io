@@ -1,0 +1,12 @@
+---
+interface Props {
+  classname?: string
+}
+
+const { classname } = Astro.props
+
+const style = `text-gray-200 bg-grey rounded-full px-3 py-2 mr-2 text-sm ${ classname }`
+---
+<span class={ style }>
+  #<slot/>
+</span>

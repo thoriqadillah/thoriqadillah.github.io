@@ -21,6 +21,7 @@ import H1 from '@components/H1.astro'
 import H4 from '@components/H4.astro'
 import Breadcrumb from '@components/Breadcrumb.astro';
 import Link from '@components/Link.astro'
+import Tag from '@components/Tag.astro'
 
 const next = frontmatter.next?.toLowerCase().split(' ').join('-') ?? ''
 const prev = frontmatter.prev?.toLowerCase().split(' ').join('-') ?? ''
@@ -47,8 +48,8 @@ const prev = frontmatter.prev?.toLowerCase().split(' ').join('-') ?? ''
         </div>
         <div>
           {
-            frontmatter.tags.split(',').map(tag => {
-              return <span class="text-gray-200 bg-grey rounded-full px-3 py-2 mr-2 text-sm">#{ tag }</span>
+            frontmatter.tags.split(',').map(text => {
+              return <Tag>{ text }</Tag>
             })
           }
         </div>
