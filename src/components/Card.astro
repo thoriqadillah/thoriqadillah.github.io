@@ -1,14 +1,14 @@
 ---
 interface Props {
   title: string
-  tags: string
-  date: string
+  tags: string[]
+  builtDate: string
   classname?: string
   href: string
   stakeholder: string
 }
 
-const { title, tags, date, classname, stakeholder, href } = Astro.props
+const { title, tags, builtDate, classname, stakeholder, href } = Astro.props
 
 import H3 from "./H3.astro";
 import Link from "./Link.astro"
@@ -21,13 +21,13 @@ const style = `p-5 max-w-fill border-2 border-grey rounded-lg hover:border-brigh
   <div class={ style }>
     <p class="text-bright text-sm font-bold inline border border-bright rounded-md p-2">{ stakeholder }</p>
     <H3 color='bright' classname='mt-3'>{ title }</H3>
-    <p class="text-gray-400 text-sm">{ date }</p>
+    <p class="text-gray-400 text-sm">{ builtDate }</p>
     <p class="text-white mt-3 h-20 md:h-24">
       <slot/>
     </p>
 
     <div class="mt-10 mb-5 overflow-x-scroll py-4">
-      {tags.split(',').map(text => {
+      {tags.map(text => {
         return <Tag>{ text }</Tag>
       })}
     </div>

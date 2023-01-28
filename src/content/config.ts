@@ -1,0 +1,18 @@
+import { z, defineCollection } from 'astro:content'
+
+const projects = defineCollection({
+  schema: z.object({
+    title: z.string(),
+    stakeholder: z.string(),
+    articleDate: z.string(),
+    projectStart: z.date(),
+    projectFinish: z.date(),
+    tags: z.array(z.string()),
+    description: z.string(),
+    sourceCode: z.string(),
+    prev: z.string().optional(),
+    next: z.string().optional(),
+  })
+})
+
+export const collections = { projects }

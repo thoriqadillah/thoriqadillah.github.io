@@ -1,0 +1,33 @@
+---
+import { getCollection, CollectionEntry } from "astro:content";
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects')
+
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project }
+  }))
+}
+
+interface Props {
+  project: CollectionEntry<'projects'>,
+}
+
+const { project } = Astro.props
+const { Content } = await project.render()
+
+import Article from "@layouts/Article.astro";
+import { date } from "astro/zod";
+import { render } from "astro/dist/runtime/server";
+---
+
+<Article  stakeholder={ project.data.stakeholder } 
+          sourceCode={ project.data.sourceCode } 
+          title={ project.data.title } 
+          tags={ project.data.tags } 
+          date={ project.data.articleDate } 
+          description={ project.data.description }
+          next={ project.data.next }
+          prev={ project.data.prev }><Content/></Article>
+

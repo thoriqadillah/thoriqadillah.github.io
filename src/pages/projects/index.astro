@@ -2,6 +2,24 @@
 import Main from "@layouts/Main.astro"
 import Section from "@layouts/Section.astro";
 import Card from "@components/Card.astro";
+import { getCollection, CollectionEntry } from "astro:content";
+import { MONTH } from "src/types/date";
+
+const projects = (await getCollection('projects')).sort((a: CollectionEntry<'projects'>, b: CollectionEntry<'projects'>) => {
+  return b.data.projectFinish.setHours(0,0,0,0) - a.data.projectFinish.setHours(0,0,0,0)
+})
+
+const builtDate = projects.map(project => {
+  const startMonth = project.data.projectStart.getMonth()
+  const startYear = project.data.projectStart.getFullYear()
+  const finishMonth = project.data.projectFinish.getMonth()
+  const finishYear = project.data.projectFinish.getFullYear()
+
+  const start = `${MONTH[startMonth]} ${startYear}`
+  const finish = `${MONTH[finishMonth]} ${finishYear}`
+  return start === finish ? start : `${start} - ${finish}`
+})
+
 ---
 
 <Main title='Cat n Code | Thoriq Adillah - Projects' type="website" description="See Thoriq Adillah's projects during his college years">
@@ -13,24 +31,15 @@ import Card from "@components/Card.astro";
   </Section>
   <div class='max-w-7xl mt-10 mx-auto'>
     <div class="md:grid md:grid-cols-2 lg:grid-cols-3 flex flex-col items-center">
-      <Card title='Essay Similarity' tags='php,machine learning' date="Aug 2022 - Des 2022" stakeholder="THESIS" href="/projects/essay-similarity" classname="mx-4 mb-4">
-        A plugin that hopefully help teachers to auto grade student answer
-        by comparing the similarity of student’s answer and teacher’s answer key
-        with machine learning
-      </Card>
-      <Card title='Wangsit' tags='php,laravel,livewire' date="Sep 2022 - Oct 2022" stakeholder="EMSI UB" href="/projects/wangsit" classname="mx-4 mb-4">
-        A rewrite and stack upgrade of EMSI website for KBMSI event registration from CI3 to Laravel
-        and Livewire. Written with laravel for the backend and livewire for the dynamic form 
-      </Card>
-      <Card title='Terminal Animation' tags='golang' date="Sep 2022" stakeholder="PERSONAL" href="/projects/terminal-animation" classname="mx-4 mb-4">
-        Because Go is pretty popular language in backend development community, so I made this
-        project to helps me learn Go. And turns out to be quite fun
-        projects 
-      </Card>
-      <Card title='Siam Questionnaire Bot' tags='deno,typescript,node js' date="May 2022" stakeholder="PERSONAL" href="/projects/siam-questionnaire-bot" classname="mx-4 mb-4">
-        A CLI app that invoke a bot to automates answering tideous teacher questionnaires in SIAM UB.
-        Written in Deno.js and Typescript with Puppeteer.js as a headless chrome bot library
-      </Card>
+      { projects.map((project, i) => {
+          return  <Card title={ project.data.title } 
+                        tags={ project.data.tags } 
+                        href={ '/projects/' + project.slug } 
+                        stakeholder={ project.data.stakeholder } 
+                        builtDate={ builtDate[i] } 
+                        classname="mx-4 mb-4">{ project.data.description }</Card>
+        })
+      }
     </div>
   </div>
 </Main>
