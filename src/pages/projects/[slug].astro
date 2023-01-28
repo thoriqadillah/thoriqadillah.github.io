@@ -18,8 +18,6 @@ const { project } = Astro.props
 const { Content } = await project.render()
 
 import Article from "@layouts/Article.astro";
-import { date } from "astro/zod";
-import { render } from "astro/dist/runtime/server";
 ---
 
 <Article  stakeholder={ project.data.stakeholder } 
