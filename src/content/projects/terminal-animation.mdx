@@ -76,20 +76,20 @@ func main() {
   optimal()
 }
 ```
-That's it! That is basically how to animate a terminal. But let's compare the speed of these two, how much time elapsed when executing the native and the optimal with the code below
+That's it! That is basically how to animate a terminal. But let's compare the speed of these two, how much time elapsed when executing the naive and the optimal with the code below
 
 ```go
 func main() {
-  startNative := time.Now()
+  startNaive := time.Now()
   naive()
-  elapsedNative := time.Since(startNative)
+  elapsedNaive := time.Since(startNaive)
 
   startOptimal := time.Now()
   optimal()
   elapsedOptimal := time.Since(startOptimal)
 
   fmt.Println()
-  fmt.Println(elapsedNative.Microseconds())
+  fmt.Println(elapsedNaive.Microseconds())
   fmt.Println(elapsedOptimal.Microseconds())
 }
 ```
@@ -114,9 +114,9 @@ func withBuffer() {
 }
 
 func main() {
-  startNative := time.Now()
+  startNaive := time.Now()
   naive()
-  elapsedNative := time.Since(startNative)
+  elapsedNaive := time.Since(startNaive)
 
   startOptimal := time.Now()
   optimal()
@@ -127,7 +127,7 @@ func main() {
   elapsedWithBuffer := time.Since(startMax)
 
   fmt.Println()
-  fmt.Println(elapsedNative.Microseconds())
+  fmt.Println(elapsedNaive.Microseconds())
   fmt.Println(elapsedOptimal.Microseconds())
   fmt.Println(elapsedWithBuffer.Microseconds())
 }
