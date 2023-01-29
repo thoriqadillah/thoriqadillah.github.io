@@ -1,14 +1,311 @@
 ---
 title: Terminal Animation
 stakeholder: PERSONAL
-articleDate: 23 Jan 2023
+articleDate: 29 Jan 2023
 projectStart: 2022-09-01
 projectFinish: 2022-09-01
-tags: ['golang']
+tags: 
+  - golang
 description: Because Go is pretty popular language in backend development community, so I made this project to helps me learn Go. And turns out to be quite fun projects 
 sourceCode: https://github.com/thoriqadillah/terminal-path-finder
 prev: 'Wangsit'
 next: 'Siam Questionnaire Bot'
 ---
 
-Rome is being built. In the meantime, visit [the repo](https://github.com/thoriqadillah/terminal-path-finder) & [this one](https://github.com/thoriqadillah/tal) instead
+## The Motivation
+I was watching youtube, and suddenly youtube recommended me [this video](https://youtu.be/0Kx4Y9TVMGg) and the video is really cool. I said to myself that I want to try the code, and I did. I did try the code in html and javascript environment. But it led my think that if I was going to try it, then maybe code it in different way. And right away, I thought of another video of [path finding video](https://www.youtube.com/watch?v=msttfIHHkak) by Clément Mihailescu, which led me to make a similar project but in another form. At the time I want to learn Golang because Golang is pretty popular in backend development community. Well, technically, I did teach myself to learn Golang, such as [this one](https://github.com/thoriqadillah/e-learning-api), but it was so boring because it was "yet another REST API project". I was having too many REST API project for learning purposes, and then I decided to make a project that has something to do with terminal, and then you know the rest of the story
+
+## How It Works
+In general, rendering in terminal is just printing bunch of strings from top to bottom, but have you ever thought about loading animation in terminal? Not actual animation, but like rendering from 1 to 100% but the cursor stays at the same place of the terminal. The simplest method we could do that is with just regular print and clearing the terminal and update the state of the string we want to animate. If I was going to code it that way, it would be something like this
+```go
+package main
+
+import (
+	"fmt"
+	"os"
+	"os/exec"
+	"time"
+)
+
+func naive() {
+  progress := 0
+
+  for {
+    fmt.Println("progress:", progress)
+    progress += 1
+    cmd := exec.Command("clear")
+    cmd.Stdout = os.Stdout
+    time.Sleep(time.Second/60)
+    cmd.Run()
+
+    if progress == 100 {
+      break
+    }
+  }
+}
+
+func main() {
+  naive()
+}
+```
+
+That would work, but that is not the optimal solution because that would hit the performance pretty bad. If you try to remove the sleep function, then terminal would be flickering. Let's try to write it in more optimal code. 
+
+To improve that, we need some way to flush or refresh the terminal screen so the string we are printing can be updated. A method I use in this project is using [ANSI escape code](https://en.wikipedia.org/wiki/ANSI_escape_code). This method is used widely in animating a terminal. ANSI is used to control how the cursor behave, looks, etc. Let's use ANSI to control how the cursor behave to animate something. 
+
+The ANSI code to refresh a terminal (placing the cursor to the start of the terminal) is `\u001b[H`, or we could placing the cursor at the leftest of the screen with `\u001b[1000D`. So, to implement refresh, we just need to print that code into terminal. And the code will be like this
+
+```go
+func optimal() {
+  progress := 0
+
+  for {
+    fmt.Print("progress:", progress)
+    progress += 1
+    time.Sleep(time.Second/60)
+    fmt.Print("\u001b[100D")
+
+    if progress == 100 {
+      break
+    }
+  }
+}
+
+func main() {
+  // naive()
+  optimal()
+}
+```
+That's it! That is basically how to animate a terminal. But let's compare the speed of these two, how much time elapsed when executing the native and the optimal with the code below
+
+```go
+func main() {
+  startNative := time.Now()
+  naive()
+  elapsedNative := time.Since(startNative)
+
+  startOptimal := time.Now()
+  optimal()
+  elapsedOptimal := time.Since(startOptimal)
+
+  fmt.Println()
+  fmt.Println(elapsedNative.Microseconds())
+  fmt.Println(elapsedOptimal.Microseconds())
+}
+```
+And it turns out, the gap between the speed is pretty big. The result was 51649 ms and 253 ms for naive and optimal respectively. That is more than 200x faster!. So that's the method I use to animate the terminal for this project. But I think we can make this even faster with buffer. At that time, so many examples about terminal animation using buffer, and people say buffer on some cases can make things faster. But I have not implemented buffer in this project because 2 another project and part time work was filling my time. But let's find it out anyway if buffer can make the terminal animation faster. To implement it with buffer, I think the code would look like this
+
+```go
+func withBuffer() {
+  var buffer bytes.Buffer
+  progress := 0
+
+  for {
+    fmt.Fprintf(&buffer, "progress: %d \u001b[100D", progress)
+    progress += 1
+    buffer.WriteTo(os.Stdout)
+    buffer.Reset()
+    time.Sleep(time.Second/60)
+
+    if progress == 100 {
+      break
+    }
+  }
+}
+
+func main() {
+  startNative := time.Now()
+  naive()
+  elapsedNative := time.Since(startNative)
+
+  startOptimal := time.Now()
+  optimal()
+  elapsedOptimal := time.Since(startOptimal)
+
+  startWithBuffer := time.Now()
+  withBuffer()
+  elapsedWithBuffer := time.Since(startMax)
+
+  fmt.Println()
+  fmt.Println(elapsedNative.Microseconds())
+  fmt.Println(elapsedOptimal.Microseconds())
+  fmt.Println(elapsedWithBuffer.Microseconds())
+}
+```
+And sure enough, the buffer can optimize the speed more than 2x faster with 36651 ms, 176 ms, and 84 ms for naive, optimal, and buffer respectively.
+
+## Implementation Of The Project
+### The Canvas
+First of all, I'm not going to explain all of the step for creating the project, because that would be too long. So I'm going to explain the most important thing. That being said, let's continue. Let's talk what we know to make this project. A the terminal is 2D. So, the most common implementation to track char position, especially in ASCII, is using an 2D array, let's call it a Canvas. A canvas has height, width, and cells. Because we're talking about terminal, which only renders ASCII, so the cells of the canvas is a bunch of string, particularly 2D array of string. If the cell is empty, then it is two empty string (because one empty string is too thin), if the cell is full then renders A block (██). For the block, we need to track where it is in canvas. So we need to also make a Block struct for that case. The code would be like this
+
+```go
+package entity
+
+type cell [][]string
+
+type Canvas struct {
+  width  int
+  height int
+  Cells  cell
+}
+
+type Block struct {
+  X    int
+  Y    int
+  Char string
+}
+```
+
+### The Cursor
+Let's not forget to make a Cursor struct so we can control the cursor in the canvas to update the animation. And let's add colors to our animation for our entertainment, and to make our animation more alive. For coloring the cursor, we also use ANSI escape code. All of the ANSI code used in this project taken from [this website](https://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html)
+
+```go
+package cursor 
+
+type iCursor interface {
+  refresh()
+  Render(canvas *entity.Canvas)
+}
+
+type iColor interface {
+  reset() string
+  SetRed(str string) string
+  SetGreen(str string) string
+  SetBlue(str string) string
+  SetYellow(str string) string
+}
+```
+### The Graph
+Next, the common way to implement path finder is using BFS with Graph data structure. To implement BFS, we need a `List` and `Queue`. A List is just a slice in Go, and a Queue is a first in first out of the list. Because a Queue is basically a List, so let's make interface of that. And for a Queue let's also make interface of that for future use, because I heard that Djikstra algorithm is using a priority Queue, so this interface is for future use.
+
+```go
+package lib
+
+type IList[T any] interface {
+  IsEmpty() bool
+  Size() int
+  InsertBack(value T)
+  RemoveFront() T
+  RemoveLast() T
+  Get(index int) T
+}
+
+type IQueue[T any] interface {
+  IsEmpty() bool
+  Enqueue(element T)
+  Dequeue() T
+}
+```
+And then for the graph, let's just show how the struct, BFS function, and how to reconstruct the path so I'm not wasting your time. The BFS function return boolean value to check if we have reached our destionation or not. After the destination is reached, we reconstruct the path and then animate it on the terminal. 
+
+Because we use block to track to position of each character in cell, to track the path we use a map with `X|Y` for the key to track the position of the path.
+
+```go
+package graph
+
+type graph struct {
+  start       *entity.Block
+  destination *entity.Block
+  queue       list.IQueue[entity.Block]
+  stack       list.IStack[entity.Block]
+  Canvas      *entity.Canvas
+  path        map[string]entity.Block
+}
+
+func (g *graph) BFS() bool {
+  if g.queue.IsEmpty() {
+    return false
+  }
+
+  neighbours := []int{-1, 1, 0, 0}
+  current := g.queue.Dequeue()
+
+  for i := range neighbours {
+    // visit all 4 direction of neighbours
+    x := current.X + neighbours[i] 
+    y := current.Y + neighbours[(i+2) % 4]
+
+    if x < 0 || y < 0 || x >= len(g.Canvas.Cells[0]) || y >= len(g.Canvas.Cells) || // if index out of bound or
+      g.Canvas.Cells[y][x] == "░░" || g.Canvas.Cells[y][x] == "██" || g.Canvas.Cells[y][x] == g.start.Char { //if visited or blocked
+      continue
+    }
+
+    g.queue.Enqueue(entity.NewBlock(x, y, ""))
+    neighbour := strconv.Itoa(x) + "|" + strconv.Itoa(y)
+    g.path[neighbour] = current //make current node as parrent
+
+    // destination reached
+    if x == g.destination.X && y == g.destination.Y {
+      return true
+    }
+
+    g.Canvas.Cells[y][x] = "░░"
+  }
+
+  // destination unreachable
+  return false
+}
+```
+After we found (or not found) the destination, we have all the path in path property. But before that, we need to track the path first. To track the path to destination, for every traversal, we store the current block as a parent of its neighbours. After the destination is reachead, we traverse back the path in reverse order. The destination has parent, which is the path before the destination, and the path before has parent, which is the path before that, and so on until we reach the start position. Every back traverse, we draw our step with block that has different color.
+```go
+func (g *graph) ReconstructPath(char string) {
+  current := g.path[strconv.Itoa(g.destination.X)+"|"+strconv.Itoa(g.destination.Y)]
+
+  for current != *g.start {
+    if current != *g.destination || current != *g.start {
+      g.Canvas.Cells[current.Y][current.X] = char
+    }
+
+    parent := strconv.Itoa(current.X)+"|"+strconv.Itoa(current.Y)
+    current = g.path[parent]
+  }
+}
+```
+### The Animation
+Last but not least, let's animate all we have coded onto the terminal with code below
+
+```go
+func main() {
+  const (
+    WIDTH  = 165
+    HEIGHT = 40
+  )
+
+  color := cursor.NewColor()
+  cursor := cursor.NewCursor()
+  canvas := entity.NewCanvas(int(WIDTH), HEIGHT).Draw()
+
+  n := 0.4 * WIDTH * HEIGHT
+  canvas.DrawBlock(int(n), "██")                         //hurdles
+  start := canvas.DrawBlock(1, color.SetBlue("██"))      //start
+  destination := canvas.DrawBlock(1, color.SetRed("██")) //end
+
+  graph := graph.NewGraph(&start[0], &destination[0]).GetBlocks(&canvas)
+  found := false
+
+  for {
+    if !found {
+      found = graph.BFS()
+    } else {
+      graph.ReconstructPath(color.SetGreen("██"))
+    }
+
+    cursor.Render(&canvas)
+  }
+}
+```
+### Result
+For all that code, the result will be like this.
+![image](https://raw.githubusercontent.com/thoriqadillah/terminal-path-finder/main/assets/bfs.gif)
+It is nothing spectacular, but it did teach me something. 
+- I learn about how to animate something in terminal. Beside videos I mentioned earlier, I also learned how to animate onto terminal from [this video](https://www.youtube.com/watch?v=kLj-H1K317U) by Tsoding.
+- I learn how to code in Go. It is indeed an interesting language (the syntax is pretty weird btw). Specifically, I learn about how to use the pointer, which is very new to me. Fun fact, first time I understand the pointer is from some explanation on youtube about borrow checking in Rust. I think it has pretty similar concept, and that is really clicks with me
+- I learn how to make a graph. Graph, for me  when I was in 3rd semester it was a concept that was quite difficult for me to understand, I don't know why. But after I made this project, I think graph is pretty interesting, and now I understand the concept
+
+
+
+And that's it. I hope you enjoy reading this. And if you find it useful, please share so other people can make useful of this project too. You can check all of the code of this project at the github icon near the title
+
+
+
+
