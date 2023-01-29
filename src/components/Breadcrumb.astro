@@ -1,6 +1,11 @@
 ---
 import Link from "./Link.astro";
 
+interface Props {
+  classname?: string
+}
+
+const { classname } = Astro.props
 const { pathname } = Astro.url
 
 let breadcrum = pathname.split('/')
@@ -16,10 +21,12 @@ let breadcrum = pathname.split('/')
 const to = breadcrum
   .map((el, i) => el.replaceAll(' ', '-') + '/')
   .map((el, i, arr) => i-1 > -1 ? (arr[i-1] + el).toLowerCase() : el.toLowerCase())
+
+const style = `mt-12 ${ classname }`
 ---
 
-<div class="px-4 md:px-20 lg:px-60 mt-12">
-  <div class="max-w-3xl mx-auto">
+<div class={ style }>
+  <div class="max-w-3xl">
     { 
       breadcrum.map((bread, i) => {
         return i-1 > -1 

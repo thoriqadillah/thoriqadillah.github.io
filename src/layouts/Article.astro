@@ -24,9 +24,9 @@ const prevProject = prev?.toLowerCase().split(' ').join('-') ?? ''
 ---
 
 <Main title={ 'Projects - ' + title } type="article" description={ description }>
-  <Breadcrumb/>
-  <div class="px-4 md:px-20 lg:px-60 mt-20">
+  <div class="px-4 md:px-20 lg:px-60 mt-10">
     <div class="max-w-3xl mx-auto">
+      <Breadcrumb classname="mb-10"/>
       <div class="flex justify-between items-center">
         <p class="text-bright text-sm font-bold inline border border-bright rounded-md p-2">{ stakeholder }</p>
         <Link href={ sourceCode } newtab='1'>
