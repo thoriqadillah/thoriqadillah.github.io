@@ -43,7 +43,7 @@ const prevProject = prev?.toLowerCase().split(' ').join('-') ?? ''
           </p>
         </div>
         <div>
-          { tags.map(text => <Tag>{ text }</Tag>) }
+          { tags.map((text, i, arr) => <Tag classname={ i == arr.length - 1 ? "mr-0" : "" }>{ text }</Tag>) }
         </div>
       </div>
       
