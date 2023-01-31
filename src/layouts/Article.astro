@@ -54,7 +54,9 @@ const prevProject = prev?.toLowerCase().split(' ').join('-') ?? ''
           prose-h3:text-2xl prose-h3:mt-6 prose-h3:mb-3 prose-h3:text-bright 
           prose-a:text-second
           prose-ul:text-white
-          prose-pre:rounded-md">
+          prose-code:after:content-none prose-code:before:content-none prose-code:text-sm prose-code:text-main
+          prose-pre:rounded-md
+          prose-img:rounded-sm">
         <slot/>
       </article>
     </div>
