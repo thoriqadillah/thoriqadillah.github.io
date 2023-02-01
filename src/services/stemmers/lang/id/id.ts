@@ -7,7 +7,6 @@ export default class IDStemmer implements Stemmer {
 
   constructor() {
     this.dictionary = Dictionary()
-    console.log(this.dictionary)
   }
 
   private inDictionary(word: string): boolean {

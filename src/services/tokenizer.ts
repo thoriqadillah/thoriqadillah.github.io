@@ -38,12 +38,12 @@ export default class Tokenizer {
     return token
   }
 
-  public vectorize(token: string[]): Vector {
+  public vectorize(token: string[], merger: string[]): Vector {
     let vector: Vector = {}
 
-    for (const word of token) {
-      if (!vector[word]) vector[word] = 1
-      else vector[word]++
+    for (const word of merger) {
+      vector[word] = vector[word] ?? 0
+      if (token.includes(word)) vector[word]++
     }
 
     return vector
