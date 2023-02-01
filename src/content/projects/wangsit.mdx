@@ -4,11 +4,71 @@ stakeholder: EMSI UB
 articleDate: 23 Jan 2023
 projectStart: 2022-09-01
 projectFinish: 2022-10-01
-tags: ['php', 'laravel']
+tags: 
+- php
+- laravel
 description: A rewrite and stack upgrade of EMSI website for KBMSI event registration from CI3 to Laravel and Livewire. Written with laravel for the backend and livewire for the dynamic form 
 sourceCode: https://github.com/thoriqadillah/wangsit
 prev: 'Essay Similarity'
 next: 'Terminal Animation'
 ---
 
-Rome is being built. In the meantime, visit [the repo](https://github.com/thoriqadillah/wangsit) instead
+## The Motivation
+Eksekutif Mahasiswa Sistem Informasi (EMSI) UB adalah organisasi yang menaungi mahasiswa program studi sistem informasi di UB. Every year, EMSI has several events that require volunteers so that the event can run. In the process of recruiting volunteers, of course, a recruitment process is needed. In the recruitment process, EMSI utilizes their website called WANGSIT to manage and simplify the open recruitment process. 
+
+However, in reality the website is hardly used or has very minimal use so that EMSI itself rarely uses the website for open recruitment purposes. This is due to the inability of the website to meet the needs of automation in recruiting volunteers. The problem is as follows:
+One event with another certainly has different form requirements that must be filled out when volunteers register for the event. However, because WANGSIT cannot dynamically manipulate the form that must be created when there is a new open recruitment, the EMSI developer is required to create the form manually by creating a new table with the columns, then creating a front-end from the registration page along with the forms manually. This results in doing work that should be done automatically through the website, such as creating forms dynamically based on user needs.
+
+## The Solution
+Because the developers at EMISI are new students the could have been chosen because EMSI lacked developers and they were unlucky, or they were also someone who wanted to work in the developer field but had just started learning programming. Therefore, during this period EMSI decided to outsource developers from outside EMSI and I was one of the 3 developers. After I heard the problem above. After I first heard about the problem I mentioned before, I thought "then what's the point of the website if you still have to create forms manually". But afterwards, I thought of a solution based on my experience when doing an internship at CMLABS and also working part time at Nandev.
+
+When I was an intern, I was assigned to do the refactoring and maintenance of their SEO Tools. One of the things that inspired me as a solution from WANGSIT was the [JSON-LD Schema Generator](https://tools.cmlabs.co/en/json-ld-schema-generator), where I took inspiration and part of the implementation of the solution I offered, so I dared to offer what I thought was a potential solution. The question is, how to implement them in WANGSIT case? I thought, maybe we can use frontend framework like Vue or React? Well, that would be overkill. Plus, this codebase would be pass to another generation that as begginer as the original developer of the WANGSIT before. So, there is no need to make this website a split between front-end and backend. But, fortunately, at the time I was working part time at Nandev, and they use something called [Livewire](https://laravel-livewire.com/) which can make laravel do front-end manipulation. And because the new curriculum in the IS study program has started using Laravel in web programming courses, I suggested changing the stack used in development from CodeIgniter 3 to Laravel and Livewire because I want to make the stack as approachable as possible to the beginner developer at EMSI.
+
+### Why Livewire?
+Basically livewire is like ordinary laravel, using PHP, so the syntax is the same. So Laravel developers like fresh year developer at EMSI UB can adapt quite quickly because of the new curriculum. Plus, Livewire makes it possible to create interactive websites using PHP, both from the front-end and back-end. So everyone should be able to quickly adapt to this framework. And we can specify which pages need to be made dynamic.
+
+### Why Not JQuery?
+JQuery should not be used in this day and age, let's be real here.
+
+## Implementation
+For we to solve the problem I mentioned before, we need to re-design the database so we can use it to make dynamic form. Here is the new database design I came up for.
+![image](/cat-n-code/article-assets/design-wangsit.svg)
+
+I will explain the database design for the events related only, because that is the interesting part, and the rest is self explanatory
+#### Events  
+This table store events data
+#### Event Forms
+A place where to store the form format of each event. The format will be a json data type to store dynamically depends on user needs. After query, it will be cast as an assoc array with a format like this by default:
+```php
+[
+  'form_type' => `text` | `textarea`, | `checkbox` | `radio` | `dropdown`,
+  'judul' => string,
+  'placeholder' => string,
+  'required' => boolean,
+  'options' => string[]
+]
+```
+A form type is just an input type in html tag. Judul is for input title. A required form if the value is true and not filled in form input, it will send a validation error in form input. And options is options that presents only on checkbox, radio, and dropdown to serves as a value and text of the options. For example, this will make a checkbox input that has Cat, Dog, and Fish as the options of the input
+```php
+[
+  'form_type' => `checkbox`,
+  'judul' => 'Your favorite animals',
+  'placeholder' => '',
+  'required' => true,
+  'options' => ['Cat', 'Dog', 'Fish']
+]
+```
+#### Event Form Responses
+If you have ever made a Google Form, the resulting form that has been filled in by the respondent will be called the response form. So similar to that, this table contains the input results from the registrants in an event. The response will be stored as a json data type in the database, and will be casted to assoc array in the backend in the following format. This format will be used to render the response in the front-end
+```php
+[
+  'judul' => string, // Your favorite animals
+  'required' => boolean, // true
+  'response' => string[] | string // Cat
+]
+```
+**P.S:** I have a thought on this decision. At first, I consider this to be a normalized version (in fact, both on `Event Forms` and this table at first is normalized version). But after some mini implementation and tests, it turned out to be more complicated than json. Because a form response and the form itself can have options to be edited in the future, so tracking the position of the input when editing (such as adding or deleting in the certain position) and then storing back the data is harder than I thought. So, json was chosen as the preferred data type in this implementation. Plus, the json itself is not edited on the database directly, but through a front-end and then passed to the back-end so the value can be replaced.
+#### Event Lulus Status
+This is used to track who has passed for each event participant if the event has a passing system for participants. Because if for example there is a passing system, in addition to the user's data being stored in `Event Form Responses`, it will be stored directly in `Event Lulus Status` with the status of not passed by default. Later, the admin must decide whether to pass or not each participant.
+## Conclusion
+And for that database design, that will do the job for the dynamic form to be made. Of course the chosen tech stack can be different than the current tech stack, such as using MongoDB for the document based database to store the events related data, using the actual front-end framework such as Vue or React. But again, I want to make the stack as approachable as possible to the beginner developer at EMSI so that the learning curve is not to high.
