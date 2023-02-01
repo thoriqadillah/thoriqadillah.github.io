@@ -42,8 +42,8 @@ const prevProject = prev?.toLowerCase().split(' ').join('-') ?? ''
             Thoriq Adillah <span class="mx-3">•</span> { date }
           </p>
         </div>
-        <div>
-          { tags.map((text, i, arr) => <Tag classname={ i == arr.length - 1 ? "mr-0" : "" }>{ text }</Tag>) }
+        <div class="flex overflow-x-hidden hover:overflow-x-scroll no-scrollbar">
+          { tags.map((text, i, arr) => <Tag classname={ i == arr.length - 1 ? "mr-0 mb-2" : "mb-2" }>{ text }</Tag>) }
         </div>
       </div>
       
@@ -87,3 +87,17 @@ const prevProject = prev?.toLowerCase().split(' ').join('-') ?? ''
     
   </div>
 </Main>
+
+<style>
+  /* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+</style>
