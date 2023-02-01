@@ -48,41 +48,41 @@ Example : `http://localhost/students`
 ### Data Searching
 Searching for data can be done using the `GET` method on the URI:
 ```
-http://localhost/namaCollection/search?req.query
+http://localhost/collectionName/search?req.query
 ```
 Example : `http://localhost/students/search?_id=q8ownfw98y`
 
 ### Data Editing
 Data editing can be done using the `PATCH` method on the URI :
 ```
-http://localhost/namaCollection/:id_namaCollection
+http://localhost/collectionName/:id_collectionName
 ```
 Example : `http://localhost/students/0q7e87q97e`
 
 ### Data Deletion
 To delete one document, you can use the `DELETE` method on the URI:
 ```
-http://localhost/namaCollection/:id_namaCollection
+http://localhost/collectionName/:id_collectionName
 ```
 Example : `http://localhost/students/0q7e87q97e`
 
 Meanwhile, the deletion of the entire document can be done on the URI
 ```
-http://localhost/namaCollection
+http://localhost/collectionName
 ```
 Example : `http://localhost/students`
 
 ### Document Relationship
 To make relationship between documents, you can use the `PATCH` method on the URI:
 ```
-http://localhost/nameCollection_asal/assign/nameCollection_destination/:id_nameCollection_asal?req.query_nameCollection_destination
+http://localhost/collectionName_from/assign/collectionName_destination/:id_collectionName_from?req.query_collectionName_destination
 ```
 Example: `http://localhost/semesters/assign/student/s8ha9dsh?nim=195150400111034`
 
 ### Deleting Document Relations
 To remove the relationship between documents, you can use the `PATCH` method on the URI:
 ```
-http://localhost/nameCollection_asal/unassign/nameCollection_destination/:id_nameCollection_asal?req.query_nameCollection_destination
+http://localhost/collectionName_from/unassign/collectionName_destination/:id_collectionName_from?req.query_collectionName_destination
 ```
 Example: `http://localhost/semesters/unassign/student/s8ha9dsh?nim=195150400111034`
 
