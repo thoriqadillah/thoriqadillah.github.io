@@ -8,7 +8,7 @@ const { href, classname } = Astro.props
 const { pathname } = Astro.url
 
 const setCurrent = pathname.substring(11) == href + (href.length !== 1 ? '/' : '') ? 'font-bold text-main' : 'hover:text-second'
-const style = `text-bright px-3 py-2 ${ classname } ${ setCurrent }`
+const style = `text-bright px-3 py-2 hover:no-underline ${ classname } ${ setCurrent }`
 
 import Link from './Link.astro'
 ---
