@@ -14,15 +14,9 @@ export default class SVD {
 
   public constructor(matrix: Matrix) {
     this.matrix = matrix
-    this.decompose()
-    this.truncate()
   }
 
-  public transform() {
-    return this.matrix.multiply(this.matrix.multiply(this.u, this.s), this.vt)
-  }
-
-  private decompose() {
+  public decompose() {
     const m = this.matrix.get().length
     const n = this.matrix.get()[0].length
     const nu = Math.min(m, n)
@@ -442,12 +436,8 @@ export default class SVD {
     this.vt = this.matrix.transpose(V);
     this.rank = rank;
     this.k = K;
-  }
 
-  private truncate() {
-    for (let i = this.k; i < this.s.length; i++) { 
-      this.s[i][i] = 0;
-    }
+    return this
   }
 
   public U() {
@@ -468,5 +458,9 @@ export default class SVD {
 
   public VT() {
     return this.vt
+  }
+
+  public K() {
+    return this.k
   }
 }
