@@ -24,7 +24,7 @@ export default class Stopword {
 
   public filter(token: string[], stemmer?: Stemmer) {
     const stopwords = this.getStopwords()
-    token = token.filter(el => stopwords.indexOf(el) == -1)
+    token = token.filter(el => stopwords.indexOf(el) === -1)
     
     if (stemmer !== undefined) {
       for (let i = 0; i < token.length; i++) {

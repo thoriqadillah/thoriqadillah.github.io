@@ -10,7 +10,7 @@ export default class LSA {
     this.matrix = matrix
   }
 
-  public transform() {
+  public transform(): Vector[] {
     const usv = new SVD(this.matrix).decompose()
     const S = usv.S()
 

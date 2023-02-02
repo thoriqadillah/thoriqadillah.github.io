@@ -14,7 +14,8 @@ export default class TFIDF {
     for (const [word] of Object.entries(this.vectors[0])) {
       this.idf[word] = 0
     }
-
+    
+    
     for (const vector of this.vectors) {
       for (const [word, count] of Object.entries(vector)) {
         if (count > 0) {
@@ -23,9 +24,9 @@ export default class TFIDF {
       }
     }
 
-    const nDocs = this.vectors.length
+    const n = this.vectors.length // total docs
     for (const [word, value] of Object.entries(this.idf)) {
-      this.idf[word] = 1 + Math.log((nDocs+1) / (value+1))
+      this.idf[word] = 1 + Math.log10((n+1) / (value+1))
     }
   }
 
