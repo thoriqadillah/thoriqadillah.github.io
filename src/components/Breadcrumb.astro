@@ -38,7 +38,7 @@ const style = `mt-12 ${ classname }`
     { 
       breadcrum.map((bread, i) => {
         return i-1 > -1 
-          ? <img src="https://img.icons8.com/material-sharp/16/f8efd4/chevron-right.png" width="16px" class="inline mr-4"/>
+          ? <img src="/cat-n-code/right.png" width="16px" class="inline mr-4"/>
             <Link href={ '/' + to[i] } classname={ i == to.length-1 ? 'hover:no-underline pointer-events-none' : 'hover:no-underline' }>
               <p class={ i == to.length-1 ? "text-second text-sm font-bold inline mr-4" : "text-bright text-sm font-bold inline mr-4 hover:text-second" }>{ bread }</p>
             </Link> 
