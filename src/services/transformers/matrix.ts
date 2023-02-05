@@ -2,18 +2,10 @@ import type { Vector } from "src/types/vector";
 
 export default class Matrix {
 
-  private matrix: number[][] = []
   private documents: Vector[] = []
 
   public constructor(documents: Vector[]) {
     this.documents = documents
-    
-    for (let i = 0; i < documents.length; i++) {
-      this.matrix.push([])
-      for (const [_, value] of Object.entries(documents[i])) {
-        this.matrix[i].push(value)
-      }
-    }
   }
 
   public construct(width: number, height: number = 0): number[][] | number[] {
@@ -50,7 +42,16 @@ export default class Matrix {
   }
 
   public get(): number[][] {
-    return this.matrix
+    const matrix: number[][] = []
+    
+    for (let i = 0; i < this.documents.length; i++) {
+      matrix.push([])
+      for (const [_, value] of Object.entries(this.documents[i])) {
+        matrix[i].push(value)
+      }
+    }
+
+    return matrix
   }
 
   public multiply(A: number[][], B: number[][]): number[][] {

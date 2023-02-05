@@ -2,23 +2,25 @@ import type Matrix from "./matrix"
 
 export default class SVD {
 
+  private m: number
+  private n: number
+
   private u: number[][] = []
   private sv: number[] = []
-  private s: number[][] = []
   private v: number[][] = []
-  private vt: number[][] = []
-  private k: number = 0
-  private rank: number = 0
 
   private matrix: Matrix
 
   public constructor(matrix: Matrix) {
     this.matrix = matrix
+
+    this.m = this.matrix.get().length
+    this.n = this.matrix.get()[0].length
   }
 
   public decompose() {
-    const m = this.matrix.get().length
-    const n = this.matrix.get()[0].length
+    const m = this.m
+    const n = this.n
     const nu = Math.min(m, n)
 
     const A = this.matrix.get()
@@ -437,34 +439,9 @@ export default class SVD {
       }
     }
 
-    // Calculate the rank
-    const EPS = Math.pow(2, -52);
-    const TOL = Math.max(m, n) * s[0] * EPS;
-    let rank = 0;
-    for (let i = 0; i < s.length; i++) { 
-      if (s[i] > TOL) {
-        ++rank;
-      }
-    }
-    
-    // Low-Rank Approximation
-    const q = 0.9;
-    let K = 0;
-    let frobA = 0;
-    let frobAk = 0;
-    let clt = 0
-    for(let i = 0; i < rank; i++) frobA += s[i];
-    do {
-      for(let i = 0; i <= K; i++) frobAk += s[i];
-      clt = frobAk / frobA;
-      K++;
-    } while (clt < q);
-
     this.u = U;
     this.sv = s;
     this.v = V;
-    this.rank = rank;
-    this.k = K;
 
     return this
   }
@@ -475,13 +452,9 @@ export default class SVD {
 
   public S() {
     // Calculate the multi-diagonal S
-
-    const m = this.matrix.get().length
-    const n = this.matrix.get()[0].length
-
-    const S: number[][] = this.matrix.construct(n, m) as number[][]
+    const S: number[][] = this.matrix.construct(this.n, this.m) as number[][]
     
-    for (let i = 0; i < m; i++) {
+    for (let i = 0; i < this.m; i++) {
       S[i][i] = this.sv[i];
     }
 
@@ -501,6 +474,31 @@ export default class SVD {
   }
 
   public K() {
-    return this.k
+    const q = 0.9;
+    let K = 0;
+    let frobA = 0;
+    let frobAk = 0;
+    let clt = 0
+    for(let i = 0; i < this.rank(); i++) frobA += this.sv[i];
+    do {
+      for(let i = 0; i <= K; i++) frobAk += this.sv[i];
+      clt = frobAk / frobA;
+      K++;
+    } while (clt < q);
+
+    return K
+  }
+
+  public rank(): number {
+    const EPS = Math.pow(2, -52);
+    const TOL = Math.max(this.m, this.n) * this.sv[0] * EPS;
+    let rank = 0;
+    for (let i = 0; i < this.sv.length; i++) { 
+      if (this.sv[i] > TOL) {
+        ++rank;
+      }
+    }
+
+    return rank
   }
 }

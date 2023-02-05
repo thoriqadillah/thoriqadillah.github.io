@@ -9,25 +9,25 @@ export default class LSA {
   constructor(matrix: Matrix) {
     this.matrix = matrix
   }
-
+  
   public transform(): Vector[] {
     const usv = new SVD(this.matrix).decompose()
-    const S = usv.S()
 
-    // truncate the topics for the most important part based on K
-    for (let i = usv.K(); i < S.length; i++) { 
-      S[i][i] = 0;
-    }
-
-    const lsa = this.matrix.multiply(
-      this.matrix.multiply(usv.U(), S),
-      usv.VT()
-    )
-
-    const transformed: Vector[] = []
-    const original = this.matrix.original()
+    const M = this.matrix.get()
+    const V = usv.V()
     
-    // transforming to key valu pair
+    // truncate V with low rank approx
+    for (let i = 0; i < V.length; i++) {
+      for (let j = usv.K(); j < V[0].length; j++) {
+        V[i][j] = 0
+      }
+    }    
+    
+    const lsa = this.matrix.multiply(M, V)
+    const original = this.matrix.original()
+    const transformed: Vector[] = []
+    
+    // transforming the matrix to key valu pair (optional)
     for (let i = 0; i < lsa.length; i++) {
       transformed[i] = {}
       let j = 0
@@ -35,7 +35,7 @@ export default class LSA {
         transformed[i][key] = lsa[i][j++]
       }
     }
-
+    
     return transformed
   }
 }
