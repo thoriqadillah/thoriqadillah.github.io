@@ -22,7 +22,7 @@ export default class Stopword {
     }
   }
 
-  public filter(token: string[], stemmer?: Stemmer) {
+  public filter(token: string[], stemmer?: Stemmer): string[] {
     const stopwords = this.getStopwords()
     token = token.filter(el => stopwords.indexOf(el) === -1)
     
