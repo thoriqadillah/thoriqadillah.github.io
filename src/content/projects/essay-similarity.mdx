@@ -1,7 +1,7 @@
 ---
 title: Essay Similarity
 stakeholder: THESIS
-articleDate: 23 Jan 2023
+articleDate: 05 Feb 2023
 projectStart: 2022-08-01
 projectFinish: 2022-12-01
 tags: 
@@ -11,6 +11,50 @@ sourceCode: https://github.com/thoriqadillah/essaysimilarity
 next: 'Wangsit'
 ---
 
-import ComingSoon from '@components/ComingSoon.astro'
+import Similarity from "@components/Similarity.astro";
 
-<ComingSoon>This project contains demo, and is being built. In the meantime, visit the repo instead</ComingSoon>
+## The Motivation
+Because of latest pandemic, COVID-19, Leaning Management System (LMS) gains more popularity than ever. One of the most popular LMS in the world is [Moodle](https://moodle.org/). With LMS, we can take advantage of it to assist us in managing various things related to the learning process such as class management, assignment management, and also online exams.
+
+Essay is one type of question that requires a deeper understanding in answering and assessing the answer. Therefore, it is possible that the more essay questions a teacher has to evaluate, the more likely the consistency of his assessment will decrease. Therefore, we need a tool to assist a teacher in assisting in the process of assessing essay questions. 
+
+While Moodle is a popular LMS, unfortunately there is no auto grading feature for essay question type. Fortunately, Moodle can be extended with a plugin, and of course people already tried made some plugins for this particular problem, with the most popular plugin for auto grading essay is [Essay Auto-grade](https://docs.moodle.org/311/en/Essay_%28auto-grade%29_question_type). The way the plugin works is, we have to make the target phrase or keyword that must be in the student's answer. If the student's answer contains these keywords, then they will get a point as for their automatic grading. But, in my opinion, there a disadvantage of this approach. If the potential 'answer key' to the question has a long text, then the teacher is also required to make up lots of keywords so that it can be a hassle for the teacher.
+
+## The Solution
+We need a more flexible way of doing auto grading, one of which is using machine learning. There is a general method used by the teacher in assessing an essay answer, namely by matching student answers with the answer keys. In its implementation, we can take advantage of machine learning using an algorithm called [Cosine Similarity](https://en.wikipedia.org/wiki/Cosine_similarity).
+
+## The Challenge
+While the solution seems obvious, but this is my first time developing a plugin and doing machine learning. Never have I thought I ever doing a machine learning or even think about it in the future, because I didn't like it the first time I coded a machine learning. 
+
+Basically, in this thesis, I was originally going to do a web development regarding booking management for a sports center at my university, but it turned out that someone had made it beforehand, but at that time it had not yet been deployed to the public. Because at that point I ran out of research topics and didn't know what to do, I consulted with my professor if he had a topic I could work on. And he had an idea about developing a Moodle plugin about automatic assessment of essay answers with machine learning. At first I didn't intend to take up the topic because I had never developed a plugin, let alone machine learning. However, due to running out of time and I also had run out of options, I was desperate to take up the topic
+
+Actually, on the part of machine learning, it's not that difficult, because surely many people have already implemented the code that I use such as stemmer, cosine similarity, TF-IDF, and LSA (more of those later), so I can directly copy and paste the code. However, this does not apply to plugin development. At first, of course, I had trouble developing it, moreover, I was completely confused by Moodle's API documentation. In fact, on the first month I was lazy coding the plugin because I was too confused. However, due to less and less time, I finally developed the plugin following how Essay Auto-grade was developed blindly. But finally, 2-3 weeks later, I have understood about this plugin.
+
+## The Implementation
+Let's discuss how the machine learning be implemented. For the cosine similarity to work best, we need to do some data cleaning. The data in question, of course, is the text of the answer key and student answer. There are several steps that we need to do to clean the data, namely:
+- **Text normalization**, which is normalizing text by making the text lower case, eliminating special characters, and whitespace trimming
+- **Tokenizing**, which is splitting the text into each word and counting the number of words in the text
+- **Stopword removal**, this process is to remove words that barely have any meaning to the entire text, such as `a`, `the`, `is`, etc
+- **Stemming**, that is changing a word into its root word so that all the words being compared will be in the same class, i.e `eating` turns to `eat`
+- **Wheighting**, for weighting the token, we will use a method called [TF-IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf)
+
+Because this is the first time I developed a plugin, and I don't know how to include a library into a plugin, so I just copied and pasted the code that I need into my code. For the English stemming and cosine similarity is copied and pasted from [PHP NLP-Tools](https://github.com/angeloskath/php-nlp-tools), the TF-IDF from [PHP-ML](https://github.com/jorgecasas/php-ml), and Indonesian stemming from [this repo](https://github.com/ilhamdp10/algoritma-stemming-nazief-adriani/blob/master/enhanced_CS.php). 
+
+**P.S**, there is a demo at the end of this article. Keep reading!
+
+But there is a problem with cosine similarity, which is it cannot detect synonyms. This is unfortunate, because when comparing two texts, we also have to take synonyms into account. After some testing and comparing with manual assessment, the similarity between auto assessment and manual assessment by teacher has a pretty huge gap. Here is the result of one of the question for the testing
+
+![image](/cat-n-code/article-assets/cossim-chart.png)
+
+Because of that, we need some way to take synonyms into account. One of the way we can take is using topic modelling. One of the most popular topic modelling is using [Latent Semantic Analysis (LSA)](https://en.wikipedia.org/wiki/Latent_semantic_analysis). To implement LSA, with need to do a [Singular Value Decomposition](https://en.wikipedia.org/wiki/Singular_value_decomposition).
+
+This was actually another challenge for me, because I had no idea how to implement SVD, let alone LSA. People said that if you have done SVD, you are most of the way to the LSA. But the problem was, what do I do after SVD has been done. But luckily, this [video explanation](https://youtu.be/K38wVcdNuFc) told me what to do after SVD has been calculated. And the overall series of SVD is really helpful btw. So I recommend checking that!
+
+After we perform LSA, the similarity between auto assessment and manual assessment by teacher is really-really close, barely identical. Only 3 out of 25 that has quite different score
+
+![image](/cat-n-code/article-assets/lsa-chart.png)
+
+And the validity of using LSA in auto grading is supported by several papers, particularly this [IEEE paper](https://ieeexplore.ieee.org/document/9336533) that shows LSA performs better than LDA (another topic modelling method). And another paper that uses LSA as their method of auto grading is [this paper](https://papers.iafor.org/submission18875/).
+
+Phew, that was a lot of reading. Now here is what we're waiting for. A simple demo!
+<Similarity/>
