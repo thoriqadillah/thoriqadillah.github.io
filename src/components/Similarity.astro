@@ -5,7 +5,7 @@ import Button from "./Button.astro";
 <div class="mb-2 flex">
   <div class="mr-5">
     <label for="method" class="text-bright font-bold mr-3">Method</label>
-    <select name="method" id="method" class="prose dark:prose-invert bg-darker p-2 rounded-md">
+    <select name="method" id="method" class="prose dark:prose-invert bg-dark p-2 rounded-md">
       <option selected value="1">Cosine Similarity</option>
       <option value="2">Cosine Similarity + LSA</option>
     </select>
@@ -13,7 +13,7 @@ import Button from "./Button.astro";
 
   <div>
     <label for="lang" class="text-bright font-bold mr-3">Language</label>
-    <select name="lang" id="lang" class="prose dark:prose-invert bg-darker p-2 rounded-md">
+    <select name="lang" id="lang" class="prose dark:prose-invert bg-dark p-2 rounded-md">
       <option selected value="none">None</option>
       <option value="en">English</option>
       <option value="id">Indonesia</option>
@@ -23,11 +23,11 @@ import Button from "./Button.astro";
 </div>
 
 <div class="flex flex-col md:flex-row">
-  <textarea class="prose dark:prose-invert docs bg-darker rounded-md w-full p-3 mb-2 md:mr-2 h-48" placeholder="Write something"/>
-  <textarea class="prose dark:prose-invert docs bg-darker rounded-md w-full p-3 mb-1 h-48" placeholder="Write something else"/>
+  <textarea class="prose dark:prose-invert docs bg-dark rounded-md w-full p-3 mb-2 md:mr-2 h-48" placeholder="Write something"/>
+  <textarea class="prose dark:prose-invert docs bg-dark rounded-md w-full p-3 mb-1 h-48" placeholder="Write something else"/>
 </div>
 
-<button class="calculate px-5 py-2 font-bold bg-darker hover:bg-dark text-white rounded-md">CALCULATE</button>
+<button class="calculate px-5 py-2 font-bold bg-dark hover:bg-darker text-white rounded-md">CALCULATE</button>
 <p id="result" class="text-second inline p-2 font-bold ml-auto"></p>
 
 <script>
