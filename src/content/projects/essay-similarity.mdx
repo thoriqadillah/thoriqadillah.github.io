@@ -31,6 +31,7 @@ Basically, in this thesis, I was originally going to do a web development regard
 Actually, on the part of machine learning, it's not that difficult, because surely many people have already implemented the code that I use such as stemmer, cosine similarity, TF-IDF, and LSA (more of those later), so I can directly copy and paste the code. However, this does not apply to plugin development. At first, of course, I had trouble developing it, moreover, I was completely confused by Moodle's API documentation. In fact, on the first month I was lazy coding the plugin because I was too confused. However, due to less and less time, I finally developed the plugin following how Essay Auto-grade was developed blindly. But finally, 2-3 weeks later, I have understood about this plugin.
 
 ## The Implementation
+### Cosine Similarity
 Let's discuss how the machine learning be implemented. For the cosine similarity to work best, we need to do some data cleaning. The data in question, of course, is the text of the answer key and student answer. There are several steps that we need to do to clean the data, namely:
 - **Text normalization**, which is normalizing text by making the text lower case, eliminating special characters, and whitespace trimming
 - **Tokenizing**, which is splitting the text into each word and counting the number of words in the text
@@ -42,20 +43,29 @@ Because this is the first time I developed a plugin, and I don't know how to inc
 
 **P.S**, there is a demo at the end of this article. Keep reading!
 
+### Latent Semantic Analysis (LSA)
 But there is a problem with cosine similarity, which is it cannot detect synonyms. This is unfortunate, because when comparing two texts, we also have to take synonyms into account. After some testing and comparing with manual assessment, the similarity between auto assessment and manual assessment by teacher has a pretty huge gap. Here is the result of one of the question for the testing
 
 ![image](/cat-n-code/article-assets/cossim-chart.png)
 
 Because of that, we need some way to take synonyms into account. One of the way we can take is using topic modelling. One of the most popular topic modelling is using [Latent Semantic Analysis (LSA)](https://en.wikipedia.org/wiki/Latent_semantic_analysis). To implement LSA, with need to do a [Singular Value Decomposition](https://en.wikipedia.org/wiki/Singular_value_decomposition).
 
-This was actually another challenge for me, because I had no idea how to implement SVD, let alone LSA. People said that if you have done SVD, you are most of the way to the LSA. But the problem was, what do I do after SVD has been done. But luckily, this [video explanation](https://youtu.be/K38wVcdNuFc) told me what to do after SVD has been calculated. And the overall series of SVD is really helpful btw. So I recommend checking that!
+This was actually another challenge for me, because I had no idea how to implement SVD, let alone LSA. People said that if you have done SVD, you are most of the way to the LSA. But the problem was, what do I do after SVD has been done. But luckily, this [video explanation](https://youtu.be/UyAfmAZU_WI) by Standford Lecture told me what to do after SVD has been calculated. And the overall series of SVD is really helpful btw. So I recommend checking that!
 
-After we perform LSA, the similarity between auto assessment and manual assessment by teacher is really-really close, barely identical. Only 3 out of 25 that has quite different score
+After we perform LSA, the similarity between auto assessment and manual assessment by teacher is closing in, and in general, the gap is reduced by alot
 
 ![image](/cat-n-code/article-assets/lsa-chart.png)
 
 And the validity of using LSA in auto grading is supported by several papers, particularly this [IEEE paper](https://ieeexplore.ieee.org/document/9336533) that shows LSA performs better than LDA (another topic modelling method). And another paper that uses LSA as their method of auto grading is [this paper](https://papers.iafor.org/submission18875/).
 
+## Demo
 Phew, that was a lot of reading. Now here is what we're waiting for. A simple demo!
 
 <Similarity/>
+
+### Note
+There is slight LSA implementation between the demo and the actual plugin. In the plugin, the LSA is calculated using truncated SVD. In general, the SVD will produces 3 matrices, `U`, `S`, and `VT`. How to calculate the LSA is by truncate the diagonal matrix, `S`, by preserving the desired dimension and assigning 0 to the rest. So when the 3 matrices is multiplied, it will perform dimensionality reduction so the value of the word on the document that has the most important topic will be increased, and this change of value will be used to improve the cosine similarity
+
+Whereas for the demo, it is calculated by multiplying original vector with `V` matrix based on SVD. This way, we will get word to topic, and will be used to improve the cosine similariy as well
+
+Why is the implementation is different? Because I tried to implement the demo as identical as the plugin, but failed because the result from the SVD is different, particularly on the `V` matrix, despite taken from the same implementation of SVD, from JAMA, and I don't know why what is the cause. I tried to debug it, and my suspicion is the `Math.hypot` from Javascript result is different compared to PHP's `hypot`, so that the `V` matrix result gets different value. But overall, it is generally the same
