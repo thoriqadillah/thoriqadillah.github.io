@@ -68,4 +68,6 @@ There is slight LSA implementation between the demo and the actual plugin. In th
 
 Whereas for the demo, it is calculated by multiplying original vector with `V` matrix based on SVD. This way, we will get word to topic, and will be used to improve the cosine similariy as well
 
-Why is the implementation is different? Because I tried to implement the demo as identical as the plugin, but failed because the result from the SVD is different, particularly on the `V` matrix, despite taken from the same implementation of SVD, from JAMA, and I don't know why what is the cause. I tried to debug it, and my suspicion is the `Math.hypot` from Javascript result is different compared to PHP's `hypot`, so that the `V` matrix result gets different value. But overall, it is generally the same
+Why is the implementation is different? Because I tried to implement the demo as identical as the plugin, but failed because the result from the SVD is different, particularly on the `V` matrix, despite taken from the same implementation of SVD, from JAMA, and I don't know why what is the cause. And when I tried to use the same implementation to calculate the LSA, the cosine similarity + LSA result is no different than standalone cosine similarity
+
+I tried to debug it, and my suspicion is the `Math.hypot` from Javascript result is different compared to PHP's `hypot`, so that the `V` matrix result gets different value. But overall, it is generally the same
