@@ -44,9 +44,9 @@ Because this is the first time I developed a plugin, and I don't know how to inc
 **P.S**, there is a demo at the end of this article. Keep reading!
 
 ### Latent Semantic Analysis (LSA)
-But there is a problem with cosine similarity, which is it cannot detect synonyms. This is unfortunate, because when comparing two texts, we also have to take synonyms into account. After some testing and comparing with manual assessment, the similarity between auto assessment and manual assessment by teacher has a pretty huge gap. Here is the result of one of the question for the testing
+But there is a problem with cosine similarity, which is it cannot detect synonyms. This is unfortunate, because when comparing two texts, we also have to take synonyms into account. After some testing and comparing with manual assessment, the similarity between auto assessment and manual assessment by teacher has a pretty huge gap. Here is the result for the testing in 4 different question
 
-![image](/cat-n-code/article-assets/cossim-chart.png)
+![Screenshot_20230207_174338](https://user-images.githubusercontent.com/44075782/217223737-7aa9ae59-c388-4e11-9a3e-c9171a2e131c.png)
 
 Because of that, we need some way to take synonyms into account. One of the way we can take is using topic modelling. One of the most popular topic modelling is using [Latent Semantic Analysis (LSA)](https://en.wikipedia.org/wiki/Latent_semantic_analysis). To implement LSA, with need to do a [Singular Value Decomposition](https://en.wikipedia.org/wiki/Singular_value_decomposition).
 
@@ -54,7 +54,7 @@ This was actually another challenge for me, because I had no idea how to impleme
 
 After we perform LSA, the similarity between auto assessment and manual assessment by teacher is closing in, and in general, the gap is reduced by alot
 
-![image](/cat-n-code/article-assets/lsa-chart.png)
+![Screenshot_20230207_174500](https://user-images.githubusercontent.com/44075782/217224261-a3f002c1-7932-49e8-adac-e7d461fd8e28.png)
 
 And the validity of using LSA in auto grading is supported by several papers, particularly this [IEEE paper](https://ieeexplore.ieee.org/document/9336533) that shows LSA performs better than LDA (another topic modelling method). And another paper that uses LSA as their method of auto grading is [this paper](https://papers.iafor.org/submission18875/).
 
