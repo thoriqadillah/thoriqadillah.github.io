@@ -37,6 +37,7 @@ const builtDate = projects.map(project => {
                         href={ '/projects/' + project.slug } 
                         stakeholder={ project.data.stakeholder } 
                         builtDate={ builtDate[i] } 
+                        containsDemo={ project.data.containsDemo }
                         classname="mx-4 mb-4">{ project.data.description }</Card>
         })
       }

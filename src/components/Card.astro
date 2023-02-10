@@ -6,19 +6,26 @@ interface Props {
   classname?: string
   href: string
   stakeholder: string
+  containsDemo?: boolean
 }
 
-const { title, tags, builtDate, classname, stakeholder, href } = Astro.props
+const { title, tags, builtDate, classname, stakeholder, href, containsDemo } = Astro.props
 
 import H3 from "./H3.astro";
 import Link from "./Link.astro"
 import Tag from "./Tag.astro"
 
-const style = `p-5 max-w-fill border-2 border-grey rounded-lg hover:border-bright ${ classname }`
+const style = `p-5 max-w-fill border-2 border-grey rounded-lg hover:border-bright ${ classname } relative`
 ---
 
 <Link href={ href } classname="no-underline hover:no-underline h-">
   <div class={ style }>
+    { 
+      containsDemo 
+        ? <div class="text-black text-sm font-bold py-0.5 px-2 absolute right-1 top-0 rounded-b-md bg-main" title="This project contains demo">DEMO AVAILABLE</div>
+        : ''
+    }
+
     <p class="text-bright text-sm font-bold inline border border-bright rounded-md p-2">{ stakeholder }</p>
     <H3 color='bright' classname='mt-3'>{ title }</H3>
     <p class="text-gray-400 text-sm">{ builtDate }</p>
