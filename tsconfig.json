@@ -5,6 +5,8 @@
     "paths": {
       "@components/*": ["src/components/*"],
       "@layouts/*": ["src/layouts/*"]
-    }
+    },
+    "verbatimModuleSyntax": true,
+    "importsNotUsedAsValues": "remove",
   }
 }

@@ -1,0 +1,33 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import { format } from "date-fns";
+
+export async function getStaticPaths() {
+  const blogs = await getCollection('blogs')
+
+  return blogs.map((blog) => ({
+    params: { slug: blog.slug },
+    props: { blog }
+  }))
+}
+
+interface Props {
+  blog: CollectionEntry<'blogs'>,
+}
+
+const { blog } = Astro.props
+const { Content } = await blog.render()
+
+import Article from "@layouts/Article.astro";
+---
+
+<Article 
+  type='Blogs'
+  title={ blog.data.title } 
+  date={ format(blog.data.date, 'dd MMM yyyy') } 
+  description={ blog.data.description }
+  next={ blog.data.next }
+  prev={ blog.data.prev }
+>
+  <Content/>
+</Article>

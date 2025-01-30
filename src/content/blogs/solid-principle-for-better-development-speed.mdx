@@ -1,0 +1,54 @@
+---
+title: SOLID Principle for Better Development Speed
+date: 2025-01-30
+description: This blog will discuss about the SOLID principle and how it can help you to improve your development speed.
+---
+
+## What is SOLID Principle?
+
+Let's start with something boring. What is SOLID Principle? SOLID is a set of principles that help you to improve your development speed. It is a way to make your code more readable, maintainable, and scalable.
+
+Now, I'm not going to discuss about the principles one by one because that is not the purpose of this blog. You can ask Google or read some articles about it. What I want to discuss is how SOLID Principle helps me improve my development speed.
+
+## The Background
+
+When i joined UniLah, I was a bit confused with the code that was written. I was like "What is this? Why is it like this? Why is it written this way?" and so on. Like, if we need to add a new feature, we need to implement it from scratch. Not only that, the code was so bad, that they decided to render all 10k users without pagination, commiting secret values in the code, and other security issues. Mind you, it happened across all projects that they have, and we have 5 of them. The thing is, there were some developers that worked there that supposedly has more years of experience than me, and I was just getting started being a professional developer. Like, I thought simple pagination and env variables are a common thing to do, but apparently, it is not.
+
+### The Rant
+
+To be fair, it was not a principle problem. It was more like a bad coding practice. It was really tempting to refactor the entire codebase, but I didn't do it (at least right away) because I was afraid of breaking something. But at the end of the day, the tech lead said we need to refactor it anyway. This was actually a hard lesson for me. Because the refactored code breaks some features, and then the tech lead somehow resigned and it was me who in charge for the refactoring, and I was in a half way of refactoring. I was stressed out, but I had to do it.
+
+Another thing was, we also had interns. While it is good to have interns, but I think in startup environment it is not a good idea to have interns. Especially when the reason you want to recruit them is to let them learn. Like, we were 2 people, and we had to manage all the projects. It was really hard to manage the projects, and it was really hard to let the interns as well. Because often time, they just copy paste code from Chat GPT without understanding the code. And they literally didn't listen to what we said. As simple as reporting their work in ClickUp, they didn't do it. When the boss ask for some feature, they just do it without asking or initiating a conversation. Just to give you an example, it took them 3 months to make 3 frontend pages that were not integrated with the backend. So, it was really hard to manage the projects, and it was really hard to let the interns as well.
+
+## The Results
+
+That was a lot of rant. Even though we need to refactor and the refactoring breaks some features, eventually we made it, and it pays off. The codebase is much more readable, maintainable, and scalable. We can do feature addition and removal much faster, and we can fix bugs much faster. And the best part is, we can fail faster with our ideas, and this is what startup is all about.
+
+For the backend, we use Nest JS for the backend. We use the following coding style:
+- For the API controller, its pretty basic. We seperate them and call them a module. A module is basically a service that has the logic to handle the request and response. For the data layer, we use the repository pattern. Repository pattern is basically a dependency inversion principle. Even though we don't test things, but I think using repository pattern can help us to make the code more testable because we can mock the data layer.
+- Anything external such as payment, notification, storage, etc, we write it in `lib` directory.
+- It is possible that there will be changes for the implementation for the external service, so often time we use factory pattern to create the instance of the service. Like for example, we use 2 different payment gateway, Stripe and Senangpay. We also use local storage for local development and google cloud storage for staging and production. We also use multiple notification, such as email and push notification.
+
+When previously we need to add a new feature, we need to implement it from scratch. Now, we can just utilize the reusable code that we have. If we need to integrate new external service, we can just create a new factory and implement the logic. For example, we want some analytics for the push notification. With expo, they don't really have analytics for the push notification. After some research, we found that one signal offers better solution for us. And then all we need to do is just create a new factory and implement the logic for the service using one signal.
+
+For the frontend, we use React, and it was easier to refactor. For the frontend projects, we didn't actually refactor the entier codebase at once. We refactored it incrementally. Of course we need to adjust the API endpoint first, but it was not that hard. The frontend also has the same problem with the backend, which is lack of reusability of the code. Every time we need to implement something similar, we need to copy paste the code and to make sure it works instead of importing the component and reuse it. So obviously, we change it
+
+Because we use barebone React, we don't have to follow any coding style. For the global component, we have `components` directory inside `src` directory. This directory is supposed to be a reusable component that can be used across the project. But for the component related to a page, we put it inside that specific page. For example it will be like this
+
+```
+- src
+  - components
+  - pages
+    - [page-name]
+      - components
+        - [component-name].tsx
+      - index.tsx
+```
+
+This way, we don't have to worry about scrolling through the code to find the component that we need. We can just go to the page and find the component that we need. After this refactoring, it was much easier to add a new feature. When initially the interns had to do it in 3 months for 3 page, now we can finish the entire project in 3 weeks. All we did was just utilizing the OCP and SRP from SOLID Principle.
+
+We also have old admin dashboard for ourselves. It was made with no designer and also suffer from the same problem as the frontend projects. So, we decided to refactor it. Because we already have other frontend refactored, it was much easier to refactor the admin dashboard. We only need 1 week to refactor it. And it was working perfectly and much more easy to operate because not only it is more stable, it is more eye catching because of the new design.
+
+## The Conclusion
+
+I learn that when refactoring a project, we don't need to refactor the entire codebase at once. We can refactor it incrementally, because most of the time, we will break something. And even though come up with something to write for a better maintanability requires more time compared to just writing "it just works" code, it is still worth it to do it for a long run, especially when you are working in a startup environment and you are working with a team

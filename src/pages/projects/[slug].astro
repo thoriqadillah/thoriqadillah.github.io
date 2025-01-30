@@ -1,5 +1,5 @@
 ---
-import { getCollection, CollectionEntry } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects')
@@ -20,13 +20,18 @@ const { Content } = await project.render()
 import Article from "@layouts/Article.astro";
 ---
 
-<Article  stakeholder={ project.data.stakeholder } 
-          containsDemo={ project.data.containsDemo }
-          sourceCode={ project.data.sourceCode } 
-          title={ project.data.title } 
-          tags={ project.data.tags } 
-          date={ project.data.articleDate } 
-          description={ project.data.description }
-          next={ project.data.next }
-          prev={ project.data.prev }><Content/></Article>
+<Article  
+  type='Projects'
+  stakeholder={ project.data.stakeholder } 
+  containsDemo={ project.data.containsDemo }
+  sourceCode={ project.data.sourceCode } 
+  title={ project.data.title } 
+  tags={ project.data.tags } 
+  date={ project.data.articleDate } 
+  description={ project.data.description }
+  next={ project.data.next }
+  prev={ project.data.prev }
+>
+  <Content/>
+</Article>
 

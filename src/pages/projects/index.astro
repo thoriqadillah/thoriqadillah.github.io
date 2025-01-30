@@ -2,7 +2,7 @@
 import Main from "@layouts/Main.astro"
 import Section from "@layouts/Section.astro";
 import Card from "@components/Card.astro";
-import { getCollection, CollectionEntry } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 import { MONTH } from "src/types/date";
 
 const projects = (await getCollection('projects')).sort((a: CollectionEntry<'projects'>, b: CollectionEntry<'projects'>) => {
@@ -31,16 +31,19 @@ const builtDate = projects.map(project => {
   </Section>
   <div class='max-w-7xl mt-10 mx-auto'>
     <div class="md:grid md:grid-cols-2 lg:grid-cols-3 flex flex-col items-center">
-      { projects.map((project, i) => {
-          return  <Card title={ project.data.title } 
-                        tags={ project.data.tags } 
-                        href={ '/projects/' + project.slug } 
-                        stakeholder={ project.data.stakeholder } 
-                        builtDate={ builtDate[i] } 
-                        containsDemo={ project.data.containsDemo }
-                        classname="mx-4 mb-4">{ project.data.description }</Card>
-        })
-      }
+      { projects.map((project, i) => (
+        <Card 
+          title={ project.data.title } 
+          tags={ project.data.tags } 
+          href={ '/projects/' + project.slug } 
+          stakeholder={ project.data.stakeholder } 
+          builtDate={ builtDate[i] } 
+          containsDemo={ project.data.containsDemo }
+          classname="mx-4 mb-4"
+        >
+          { project.data.description }
+        </Card>
+      ))}
     </div>
   </div>
 </Main>

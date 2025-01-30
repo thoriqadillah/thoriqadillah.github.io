@@ -2,16 +2,17 @@
 interface Props {
   title: string
   date: string
-  tags: string[]
-  stakeholder: string
+  type: 'Blogs' | 'Projects'
+  tags?: string[]
+  stakeholder?: string
   containsDemo?: boolean
   description: string
   next?: string
   prev?: string
-  sourceCode: string
+  sourceCode?: string
 }
 
-const { title, date, tags, stakeholder, description, next, prev, sourceCode }  = Astro.props
+const { title, date, tags = [], stakeholder, type, description, next, prev, sourceCode }  = Astro.props
 
 import Main from './Main.astro'
 import H1 from '@components/H1.astro'
@@ -24,15 +25,15 @@ const nextProject = next?.toLowerCase().split(' ').join('-') ?? ''
 const prevProject = prev?.toLowerCase().split(' ').join('-') ?? ''
 ---
 
-<Main title={ 'Projects - ' + title } type="article" description={ description }>
+<Main title={ `${type} - ${title}` } type="article" description={ description }>
   <div class="px-4 md:px-20 lg:px-60 mt-10">
     <div class="max-w-3xl mx-auto">
       <Breadcrumb classname="mb-10"/>
       <div class="flex justify-between items-center">
-        <p class="text-bright text-sm font-bold inline border border-bright rounded-md p-2">{ stakeholder }</p>
-        <Link href={ sourceCode } newtab='1'>
+        {stakeholder && <p class="text-bright text-sm font-bold inline border border-bright rounded-md p-2">{ stakeholder }</p>}
+        {sourceCode && <Link href={ sourceCode } newtab='1'>
           <img src="/cat-n-code/github.svg" alt="source code" title="Source code of the project">
-        </Link>
+        </Link>}
       </div>
       <H1 color="main" classname="my-3">{ title }</H1>
 
@@ -43,18 +44,20 @@ const prevProject = prev?.toLowerCase().split(' ').join('-') ?? ''
             Thoriq Adillah <span class="mx-3">•</span> { date }
           </p>
         </div>
-        <div class="flex overflow-x-hidden hover:overflow-x-scroll no-scrollbar">
+        {tags && <div class="flex overflow-x-hidden hover:overflow-x-scroll no-scrollbar">
           { tags.map((text, i, arr) => <Tag classname={ i == arr.length - 1 ? "mr-0 mb-2" : "mb-2" }>{ text }</Tag>) }
-        </div>
+        </div>}
       </div>
       
       <article class="max-w-3xl mt-10 prose dark:prose-invert 
-          prose-p:text-white 
+          prose-p:text-white
+          prose-p:opacity-80 
           prose-h1:text-6xl prose-h1:text-bright 
           prose-h2:text-4xl prose-h2:mt-6 prose-h2:mb-3 prose-h2:text-bright 
           prose-h3:text-2xl prose-h3:mt-6 prose-h3:mb-3 prose-h3:text-bright 
           prose-a:text-second
           prose-ul:text-white
+          prose-ul:opacity-80
           prose-code:after:content-none prose-code:before:content-none prose-code:text-sm prose-code:text-main
           prose-pre:rounded-md
           prose-img:rounded-md">
@@ -65,25 +68,23 @@ const prevProject = prev?.toLowerCase().split(' ').join('-') ?? ''
 
   <div class="flex px-4 md:max-w-4xl lg:max-w-5xl mx-auto">
     {
-      prevProject !== '' 
-      ? <div id="prev-section" class="p-3 border border-grey hover:border-bright rounded-md mt-24 text-right mr-auto w-48">
-          <Link href={ '/projects/' + prevProject } classname='hover:no-underline'>
-            <H4 color="bright">Previous</H4>
-            <p id="prev" class="text-gray-400 text-sm">{ prev }</p>
-          </Link>
-        </div>
-      : ''
+      prevProject && 
+      <div id="prev-section" class="p-3 border border-grey hover:border-bright rounded-md mt-24 text-right mr-auto w-48">
+        <Link href={ '/projects/' + prevProject } classname='hover:no-underline'>
+          <H4 color="bright">Previous</H4>
+          <p id="prev" class="text-gray-400 text-sm">{ prev }</p>
+        </Link>
+      </div>
     }
     
     { 
-      nextProject !== '' 
-      ? <div id="next-section" class="p-3 border border-grey hover:border-bright rounded-md mt-24 ml-auto w-48">
-          <Link href={ '/projects/' + nextProject } classname='hover:no-underline' >
-            <H4 color="bright">Next</H4>
-            <p id="next" class="text-gray-400 text-sm">{ next }</p>
-          </Link>
-        </div>
-      : '' 
+      nextProject && 
+      <div id="next-section" class="p-3 border border-grey hover:border-bright rounded-md mt-24 ml-auto w-48">
+        <Link href={ '/projects/' + nextProject } classname='hover:no-underline' >
+          <H4 color="bright">Next</H4>
+          <p id="next" class="text-gray-400 text-sm">{ next }</p>
+        </Link>
+      </div>
     }
     
   </div>

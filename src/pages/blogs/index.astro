@@ -1,0 +1,34 @@
+---
+import Main from "@layouts/Main.astro"
+import Section from "@layouts/Section.astro";
+import Card from "@components/Card.astro";
+import { getCollection } from "astro:content";
+import { format } from "date-fns";
+
+const blogs = (await getCollection('blogs')).sort((a, b) => {
+  return b.data.date.setHours(0,0,0,0) - a.data.date.setHours(0,0,0,0)
+})
+
+---
+
+<Main title='Cat n Code | Thoriq Adillah - Blogs' type="website" description="See Thoriq Adillah's blogs">
+	<Section emoji='✍️' summary='' title="Blogs" classname='mt-24'>
+    <p class="text-white">
+      Welcome to my blog! Here I share my thoughts, experiences, and insights about software development, tech trends, and my journey as a developer.
+    </p>
+  </Section>
+  <div class='max-w-7xl mt-10 mx-auto'>
+    <div class="md:grid md:grid-cols-2 lg:grid-cols-3 flex flex-col items-center">
+      { blogs.map((blog, i) => (
+        <Card 
+          title={ blog.data.title } 
+          href={ '/blogs/' + blog.slug } 
+          builtDate={ format(blog.data.date, 'dd MMM yyyy') } 
+          classname="mx-4 mb-4"
+        >
+          { blog.data.description }
+        </Card>
+      ))}
+    </div>
+  </div>
+</Main>

@@ -20,6 +20,8 @@ const url = Astro.url
 		<meta name="generator" content={ Astro.generator } />
 		<meta name="description" content={ description }>
 
+    <meta name="robots" content="index, follow">
+    <meta name="keywords" content="software, developer, programming, coding, blog, tutorial, web development, software development, software engineer, software developer">
 		<!-- open graph general -->
 		<meta property="og:title" content={ title } />
 		<meta property="og:description" content= { description } />
@@ -27,6 +29,8 @@ const url = Astro.url
 		<meta property="og:locale" content="en_US" />
 		<meta property="og:site_name" content="https://thoriqadillah.github.io/cat-n-code">
 		<meta property="og:type" content={ type }>
+
+    <link rel="sitemap" href="/sitemap-index.xml" />
 
 		<title>{title}</title>
 	</head>

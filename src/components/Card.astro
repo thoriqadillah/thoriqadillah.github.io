@@ -1,11 +1,11 @@
 ---
 interface Props {
   title: string
-  tags: string[]
+  tags?: string[]
   builtDate: string
   classname?: string
   href: string
-  stakeholder: string
+  stakeholder?: string
   containsDemo?: boolean
 }
 
@@ -20,24 +20,20 @@ const style = `p-5 max-w-fill border-2 border-grey rounded-lg hover:border-brigh
 
 <Link href={ href } classname="no-underline hover:no-underline h-">
   <div class={ style }>
-    { 
-      containsDemo 
-        ? <div class="text-black text-sm font-bold py-0.5 px-2 absolute right-1 top-0 rounded-b-md bg-main" title="This project contains demo">DEMO AVAILABLE</div>
-        : ''
-    }
+    { containsDemo && <div class="text-black text-sm font-bold py-0.5 px-2 absolute right-1 top-0 rounded-b-md bg-main" title="This project contains demo">DEMO AVAILABLE</div> }
 
-    <p class="text-bright text-sm font-bold inline border border-bright rounded-md p-2">{ stakeholder }</p>
+    { stakeholder && <p class="text-bright text-sm font-bold inline border border-bright rounded-md p-2">{ stakeholder }</p> }
     <H3 color='bright' classname='mt-3'>{ title }</H3>
     <p class="text-gray-400 text-sm">{ builtDate }</p>
     <p class="text-white mt-3 h-20 md:h-24">
       <slot/>
     </p>
 
-    <div class="mt-10 mb-5 overflow-x-hidden hover:overflow-x-scroll flex py-4 no-scrollbar">
+    { tags && <div class="mt-10 mb-5 overflow-x-hidden hover:overflow-x-scroll flex py-4 no-scrollbar">
       {tags.map(text => {
         return <Tag>{ text }</Tag>
       })}
-    </div>
+    </div> }
   </div>
 </Link>
 
