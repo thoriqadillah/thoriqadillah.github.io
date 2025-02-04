@@ -1,0 +1,17 @@
+---
+import H4 from './H4.astro'
+interface Props {
+  name: string
+  role: string
+}
+
+const { name, role } = Astro.props
+---
+
+<div class="border bg-bright bg-opacity-90 rounded-md w-full p-3">
+  <div class="mb-5">
+    <H4 color='dark'>{ name }</H4>
+    <p class="text-dark opacity-70 text-sm">{ role }</p>
+  </div>
+  <slot/>
+</div>

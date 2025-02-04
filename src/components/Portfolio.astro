@@ -1,0 +1,50 @@
+---
+import H4 from './H4.astro'
+import Link from './Link.astro'
+import Tag from './Tag.astro'
+
+interface Props {
+  name: string
+  date: string
+  image: string
+  stakeholder: string
+  tags: string[]
+  url?: string
+}
+
+const { name, date, stakeholder, image, tags, url } = Astro.props
+---
+
+<div class="border rounded-md w-full p-3 flex flex-col-reverse md:flex-row gap-5">
+  <div class="mb-5 basis-1/2 flex flex-col gap-7 justify-between">
+    <div class="space-y-5">
+      <div>
+        <H4 color='bright'>{ name }</H4>
+        <p class="text-white opacity-70 text-sm">
+          { stakeholder }  <span class="px-1">•</span>  { date }
+        </p>
+      </div>
+  
+      <div>
+        <slot/>
+      </div>
+  
+      <div class="flex flex-wrap overflow-x-scroll">
+        {tags.map(tag => (
+          <Tag classname='text-nowrap'>{tag}</Tag>
+        ))}
+      </div>
+    </div>
+
+    {url && <div class="mt-auto">
+      <Link href={url} classname='font-bold flex items-center hover:text-black hover:no-underline' newtab='1'>
+        <button class="px-4 py-2 bg-main rounded-full flex gap-2 group">
+          <p class="text-black">Visit Project</p>
+          <img src="https://api.iconify.design/radix-icons:arrow-right.svg?color=%ffffff" class="ml-2 hover:grow-0 group-hover:translate-x-1 transition" alt="arrow">
+        </button>
+      </Link>
+    </div>}
+  </div>
+
+  <img src={image} alt="" class="basis-1/2 md:w-1/2 object-cover max-h-[20rem] rounded-sm">
+</div>

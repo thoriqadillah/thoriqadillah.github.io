@@ -3,6 +3,8 @@ import Main from "@layouts/Main.astro"
 import H3 from "@components/H3.astro";
 import Link from "@components/Link.astro";
 import Tag from "@components/Tag.astro";
+import Testimony from "@components/Testimony.astro";
+import Portfolio from "@components/Portfolio.astro";
 
 const tags = ['golang', 'node-js', 'typescript', 'javascript', 'python', 'vue', 'svelte', 'laravel', 'sql', 'nosql']
 ---
@@ -20,7 +22,7 @@ const tags = ['golang', 'node-js', 'typescript', 'javascript', 'python', 'vue', 
       </p>
 
       <div class="mb-10 -mt-7">
-        <Link href='https://drive.google.com/file/d/1z3E2Bp_PWCK6dH6hVxJLCeWZCzPkY6lA/view?usp=drive_link' classname='font-bold flex items-center justify-center lg:justify-start hover:text-black' newtab='1'>
+        <Link href='https://drive.google.com/file/d/1z3E2Bp_PWCK6dH6hVxJLCeWZCzPkY6lA/view?usp=drive_link' classname='font-bold flex items-center justify-center lg:justify-start hover:text-black hover:no-underline' newtab='1'>
           <button class="px-4 py-2 bg-main rounded-full flex gap-2 group">
             <p class="text-black">Get my resume</p>
             <img src="https://api.iconify.design/radix-icons:arrow-right.svg?color=%ffffff" class="ml-2 hover:grow-0 group-hover:translate-x-1 transition" alt="arrow">
@@ -32,7 +34,106 @@ const tags = ['golang', 'node-js', 'typescript', 'javascript', 'python', 'vue', 
       <div class="mx-auto flex flex-wrap justify-center lg:justify-start max-w-md lg:mx-0">
         { tags.map(tag => <Tag classname='my-1 w-fit mx-2 lg:mx-0 lg:mr-2'>{ tag }</Tag>) }
       </div>
-      
+    </div>
+  </div>
+  
+  <div class="px-4 md:px-8 lg:px-12 lg:my-8 max-w-7xl mx-auto">
+    <H3 color='bright' classname="py-4">Testimony</H3>
+    <div class="flex flex-col md:flex-row gap-5">
+      <Testimony name="Shawn Tham" role="CEO of UniLah">
+        <p class="text-dark opacity-90">
+          Thoriq has been a good engineer in UniLah. 
+          He has good work ethic, on time when delivering things, and has good communication overall
+        </p>
+      </Testimony>
+      <Testimony name="Alya Mohd" role="Growth and Innovation Lead @ UniLah">
+        <p class="text-dark opacity-90">
+          Thoriq has been a great person to work with. 
+          Thoriq always take the time to explain and teach which is a rare and amazing attribute to have in a team member.
+        </p>
+      </Testimony>
+    </div>
+  </div>
+
+  <div class="px-4 md:px-8 lg:px-12 lg:my-8 max-w-7xl mx-auto">
+    <H3 color='bright' classname="py-4 mt-[5rem]">Work Portfolio</H3>
+    <div class="flex flex-col gap-10">
+      <Portfolio
+        name="UniLah Overseas Campus (UOC)"
+        stakeholder="UniLah"
+        date="2024"
+        tags={['react', 'nestjs', 'postgresql', 'payment']}
+        image="uoc.png"
+        url="https://uoc.myunilah.com/"
+      >
+        <p class="text-white opacity-90">
+          A job portal for employer to seek overseas students.
+          In this project, i manage all the frontend and backend. 
+          In this app, employer and student can manage their job application.
+          For employer, they also can mass message selected student by outreaching them via email
+        </p>
+      </Portfolio>
+
+      <Portfolio
+        name="UniLah Admin"
+        stakeholder="UniLah"
+        date="2024"
+        tags={['react', 'nestjs', 'postgresql', 'message-queue']}
+        image="admin-unilah.png"
+        url="https://admin.myunilah.com/"
+      >
+        <p class="text-white opacity-90">
+          Admin dashboard to manage all the content of UniLah platform.
+          In this project, I managed most of the backend and frontend. 
+          I also refactored the UI to the current UI and refactored the dashboard in general
+          to include the UOC as well
+        </p>
+      </Portfolio>
+
+      <Portfolio
+        name="UniLah App"
+        stakeholder="UniLah"
+        date="2024"
+        tags={['react-native', 'nestjs', 'postgresql']}
+        image="unilah-app.jpg"
+      >
+        <p class="text-white opacity-90">
+          UniLah App is a mobile app for students to attend university events and redeem some product deals.
+          In this project, I managed some feature of the backend. 
+          I also refactored some component of the app
+        </p>
+      </Portfolio>
+
+      <Portfolio
+        name="Sapiengraph Job Monitoring"
+        stakeholder="Proxycurl"
+        date="2024 - 2025"
+        tags={['flask', 'python', 'websocket']}
+        image="sapiengraph.png"
+        url="https://sapiengraph.com/"
+      >
+        <p class="text-white opacity-90">
+          Sapiengraph is an integrated version of Proxycrul API.
+          In this project, I contributed to the bulk job monitoring feature. 
+          I also contributed to the spreadsheet integration of the proxycurl API
+          into sapiengraph and implemented email finder landing page
+        </p>
+      </Portfolio>
+
+      <Portfolio
+        name="Proxycurl Sandbox API"
+        stakeholder="Proxycurl"
+        date="2024 - 2025"
+        tags={['flask', 'python', 'data-pipeline']}
+        image="proxycurl.png"
+        url="https://nubela.co/proxycurl/"
+      >
+        <p class="text-white opacity-90">
+          In this project, I developed API sandbox for the data enrichment for company API.
+          This API sandbox will be used by users to test things out in sandbox mode
+          so that users don't have to spend credits while testing things
+        </p>
+      </Portfolio>
     </div>
   </div>
 </Main>
