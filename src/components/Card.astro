@@ -18,7 +18,7 @@ import Tag from "./Tag.astro"
 const style = `p-5 max-w-fill border-2 border-grey rounded-lg hover:border-bright ${ classname } relative`
 ---
 
-<Link href={ href } classname="no-underline hover:no-underline h-">
+<Link href={ href } classname="no-underline hover:no-underline">
   <div class={ style }>
     { containsDemo && <div class="text-black text-sm font-bold py-0.5 px-2 absolute right-1 top-0 rounded-b-md bg-main" title="This project contains demo">DEMO AVAILABLE</div> }
 
