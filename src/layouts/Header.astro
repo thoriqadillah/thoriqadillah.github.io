@@ -21,24 +21,19 @@ import Socials from "./Socials.astro";
     </div>
   </div>
   
-  <div id="menu" class="hidden absolute inset-x-0">
+  <div hidden id="menu" class="absolute inset-x-0">
     <div class="flex flex-col text-center bg-black border-b-2 border-grey">
       <Navigation href='/' classname='my-2'>Home</Navigation>
       <Navigation href='/projects' classname='my-2'>Projects</Navigation>
+      <Navigation href='/blogs' classname='my-2'>Blogs</Navigation>
       <Socials classname='mx-auto my-4'/>
     </div>
   </div>
 </nav>
 
 <script>
-
   const menuButton = document.querySelector('#menu-button') as HTMLElement
   const menu = document.querySelector('#menu') as HTMLElement
 
-  let displayed = false
-  menuButton.onclick = () => {
-    menu.style.display = displayed ? 'none' : 'block'
-    displayed = !displayed
-  }
-  
+  menuButton.onclick = () => menu.hidden = !menu.hidden
 </script>
