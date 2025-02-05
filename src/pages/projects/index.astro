@@ -24,10 +24,11 @@ const builtDate = projects.map(project => {
 ---
 
 <Main title='Thoriq Adillah - Projects' type="website" description="See Thoriq Adillah's projects during his college years">
-	<Section emoji='🚧' summary='In My Spare Time' title="Projects That I Can Show Off" classname='mt-24'>
+	<Section emoji='🚧' summary='' title="Projects That I Can Show Off" classname='mt-24'>
     <p class="text-white">
-      Beside internship and part time job, I also have done multiple projects during my college years.
-      Click one of them to learn more about them.
+      Collection of projects that I have been working on or contributed to.
+      Work portfolio are projects that I contributed to for my job.
+      Personal projects are projects that I have been working on for fun or for my own learning.
     </p>
   </Section>
   <div class="flex gap-5 justify-center my-10">
@@ -141,17 +142,33 @@ const builtDate = projects.map(project => {
     const workPortoContainer = document.getElementById('work-porto-container') as HTMLDivElement
     const personalProjectContainer = document.getElementById('personal-project-container') as HTMLDivElement
 
+    const queryParam = new URLSearchParams(window.location.search)
+
+    function activatePorto(toggle: string) {
+      if (toggle === 'work') {
+        personalProject.dataset.active = 'false'
+        workPorto.dataset.active = 'true'
+        personalProjectContainer.dataset.active = 'false'
+        workPortoContainer.dataset.active = 'true'
+      } else if (toggle === 'personal') {
+        personalProject.dataset.active = 'true'
+        workPorto.dataset.active = 'false'
+        personalProjectContainer.dataset.active = 'true'
+        workPortoContainer.dataset.active = 'false'
+      }
+    }
+    const toggle = queryParam.get('toggle')
+    if (toggle) activatePorto(toggle)
+    
     workPorto.onclick = () => {
-      personalProject.dataset.active = 'false'
-      workPorto.dataset.active = 'true'
-      personalProjectContainer.dataset.active = 'false'
-      workPortoContainer.dataset.active = 'true'
+      activatePorto('work')
+      queryParam.set('toggle', 'work')
+      window.history.pushState({}, '', window.location.pathname + '?' + queryParam.toString())
     }
     personalProject.onclick = () => {
-      personalProject.dataset.active = 'true'
-      workPorto.dataset.active = 'false'
-      personalProjectContainer.dataset.active = 'true'
-      workPortoContainer.dataset.active = 'false'
+      activatePorto('personal')
+      queryParam.set('toggle', 'personal')
+      window.history.pushState({}, '', window.location.pathname + '?' + queryParam.toString())
     }
   </script>
 </Main>
