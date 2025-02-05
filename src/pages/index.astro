@@ -10,7 +10,7 @@ const tags = ['golang', 'node-js', 'typescript', 'javascript', 'python', 'vue', 
 ---
 
 <Main title='Thoriq Adillah' type="website" description="Hi there, I am a Software Developer with 2 years of experience based on Surakarta, Indonesia. I love being software developer because i love solving problem with coding">
-  <div class="px-4 md:px-8 lg:px-12 lg:my-8 max-w-7xl mx-auto flex flex-col lg:flex-row-reverse justify-around max-h-70">
+  <div class="relative px-4 md:px-8 lg:px-12 lg:my-8 max-w-7xl mx-auto flex flex-col lg:flex-row-reverse justify-around max-h-70">
     <div class="mx-auto lg:mx-0">
       <img src="cat.webp" alt="cat" class="w-[500px] lg:w-[700px]" width="500px">
     </div>
@@ -22,7 +22,7 @@ const tags = ['golang', 'node-js', 'typescript', 'javascript', 'python', 'vue', 
       </p>
 
       <div class="mb-10 -mt-7">
-        <Link href='https://drive.google.com/file/d/1z3E2Bp_PWCK6dH6hVxJLCeWZCzPkY6lA/view?usp=drive_link' classname='font-bold flex items-center justify-center lg:justify-start hover:text-black hover:no-underline' newtab='1'>
+        <Link id="resume" href='https://drive.google.com/file/d/1z3E2Bp_PWCK6dH6hVxJLCeWZCzPkY6lA/view?usp=drive_link' classname='font-bold flex items-center justify-center lg:justify-start hover:text-black hover:no-underline' newtab='1'>
           <button class="px-4 py-2 bg-main rounded-full flex gap-2 group">
             <p class="text-black">Get my resume</p>
             <img src="https://api.iconify.design/radix-icons:arrow-right.svg?color=%ffffff" class="ml-2 hover:grow-0 group-hover:translate-x-1 transition" alt="arrow">
@@ -34,6 +34,10 @@ const tags = ['golang', 'node-js', 'typescript', 'javascript', 'python', 'vue', 
       <div class="mx-auto flex flex-wrap justify-center lg:justify-start max-w-md lg:mx-0">
         { tags.map(tag => <Tag classname='my-1 w-fit mx-2 lg:mx-0 lg:mr-2'>{ tag }</Tag>) }
       </div>
+    </div>
+
+    <div class="text-bright absolute bottom-10 bg-bright p-2 rounded-full animate-bounce">
+      <img src="https://api.iconify.design/radix-icons:arrow-down.svg?color=%23000000" alt="" width="20">
     </div>
   </div>
   

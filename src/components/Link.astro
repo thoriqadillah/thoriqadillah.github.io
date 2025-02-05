@@ -1,16 +1,18 @@
 ---
-interface Props {
+import type { HTMLAttributes } from 'astro/types'
+
+interface Props extends HTMLAttributes<'a'> {
   href: string
   classname?: string
   newtab?: string
 }
 
-const { href, classname, newtab } = Astro.props
+const { href, classname, newtab, ...props } = Astro.props
 
 const style = `text-bright hover:text-second hover:underline ${ classname }`
 const target = newtab ? '_blank' : ''
 ---
 
-<a href={ href } class={ style } target={ target }>
+<a {...props} href={ href } class={ style } target={ target }>
   <slot/>
 </a>

@@ -1,22 +1,24 @@
 ---
-interface Props {
-  color: string
+import type { HTMLAttributes } from 'astro/types'
+
+const textcolor = {
+  'second': 'text-second',
+  'main': 'text-main',
+  'dark': 'text-dark',
+  'black': 'text-black',
+  'bright': 'text-bright',
+}
+
+interface Props extends HTMLAttributes<'h3'> {
+  color: keyof typeof textcolor
   classname?: string
 }
 
-const { color, classname } = Astro.props
+const { color, classname, ...props } = Astro.props
 
-const textcolor = new Map([
-  ['second', 'text-second'],
-  ['main', 'text-main'],
-  ['dark', 'text-dark'],
-  ['black', 'text-black'],
-  ['bright', 'text-bright'],
-])
-
-const style = `text-2xl font-black ${ textcolor.get(color) } ${ classname }`
+const style = `text-2xl font-black ${ textcolor[color] } ${ classname }`
 ---
 
-<h1 class={ style }>
+<h3 {...props} class={ style }>
   <slot/>
-</h1>
+</h3>
