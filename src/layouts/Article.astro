@@ -31,7 +31,7 @@ const prevProject = prev?.toLowerCase().split(' ').join('-') ?? ''
       <Breadcrumb classname="mb-10"/>
       <div class="flex justify-between items-center">
         {stakeholder && <p class="text-bright text-sm font-bold inline border border-bright rounded-md p-2">{ stakeholder }</p>}
-        {sourceCode && <Link href={ sourceCode } newtab='1'>
+        {sourceCode && <Link id='source-code' href={ sourceCode } newtab='1'>
           <img src="/github.svg" alt="source code" title="Source code of the project">
         </Link>}
       </div>
@@ -88,6 +88,23 @@ const prevProject = prev?.toLowerCase().split(' ').join('-') ?? ''
     }
     
   </div>
+
+  <script type="application/json" data-json={JSON.stringify(Astro.props)}></script>
+  <script type="text/javascript">
+    const json = document.querySelector('[data-json]').dataset.json
+    const props = JSON.parse(json)
+    
+    const sourceCode = document.getElementById('source-code')
+    const slug = location.pathname.split('/').pop()
+    const eventName = `source_code:${slug}`
+    
+    sourceCode.addEventListener('click', () => {
+      gtag('event', eventName, {
+        'project_name': props.title,
+        'project_url': props.sourceCode
+      })
+    })
+  </script>
 </Main>
 
 <style>

@@ -1,18 +1,19 @@
 ---
-interface Props {
+import type { HTMLAttributes } from 'astro/types'
+import Link from './Link.astro'
+
+interface Props extends HTMLAttributes<'a'> {
   href: string
   classname?: string
 }
 
-const { href, classname } = Astro.props
+const { href, classname, ...props } = Astro.props
 const { pathname } = Astro.url
 
 const setCurrent = href === pathname ? 'font-bold text-main' : 'hover:text-second'
 const style = `text-bright px-3 py-2 hover:no-underline ${ classname } ${ setCurrent }`
-
-import Link from './Link.astro'
 ---
 
-<Link href={ href } classname={ style }>
+<Link {...props} href={ href } classname={ style }>
   <slot/>
 </Link>
