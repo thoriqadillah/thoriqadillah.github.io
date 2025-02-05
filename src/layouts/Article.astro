@@ -94,12 +94,8 @@ const prevProject = prev?.toLowerCase().split(' ').join('-') ?? ''
     const json = document.querySelector('[data-json]').dataset.json
     const props = JSON.parse(json)
     
-    const sourceCode = document.getElementById('source-code')
-    const slug = location.pathname.split('/').pop()
-    const eventName = `source_code:${slug}`
-    
     sourceCode.addEventListener('click', () => {
-      gtag('event', eventName, {
+      gtag('event', 'source_code', {
         'project_name': props.title,
         'project_url': props.sourceCode
       })
