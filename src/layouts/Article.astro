@@ -91,7 +91,7 @@ const prevProject = prev?.toLowerCase().split(' ').join('-') ?? ''
 
   <script type="application/json" data-json={JSON.stringify(Astro.props)}></script>
   <script type="text/javascript">
-    const path = location.pathname.split('/').pop()
+    const path = location.pathname.split('/').filter(Boolean).pop()
     const sourceCode = document.getElementById(`source-code:${path}`)
     const json = document.querySelector('[data-json]').dataset.json
     const props = JSON.parse(json)
