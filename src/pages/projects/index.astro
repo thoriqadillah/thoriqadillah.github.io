@@ -4,6 +4,7 @@ import Section from "@layouts/Section.astro";
 import Card from "@components/Card.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 import { MONTH } from "src/types/date";
+import Portfolio from "@components/Portfolio.astro";
 
 const projects = (await getCollection('projects')).sort((a: CollectionEntry<'projects'>, b: CollectionEntry<'projects'>) => {
   return b.data.projectFinish.setHours(0,0,0,0) - a.data.projectFinish.setHours(0,0,0,0)
@@ -29,8 +30,94 @@ const builtDate = projects.map(project => {
       Click one of them to learn more about them.
     </p>
   </Section>
+  <div class="flex gap-5 justify-center my-10">
+    <button data-active="true" id="work-porto" class="text-white px-4 py-2 rounded-full data-[active=true]:bg-second data-[active=true]:text-dark font-semibold">
+      Work Portfolio
+    </button>
+    <button data-active="false" id="personal-project" class="text-white px-4 py-2 rounded-full data-[active=true]:bg-second data-[active=true]:text-dark font-semibold">
+      Personal Projects
+    </button>
+  </div>
   <div class='max-w-7xl mt-10 mx-auto'>
-    <div class="md:grid md:grid-cols-2 lg:grid-cols-3 flex flex-col items-center">
+    <div id="work-porto-container" data-active="true" class="flex flex-col gap-10 data-[active=false]:hidden">
+      <Portfolio
+        name="Proxycurl Sandbox API"
+        stakeholder="Proxycurl"
+        date="2024 - 2025"
+        tags={['flask', 'python', 'data-pipeline']}
+        image="proxycurl.png"
+        url="https://nubela.co/proxycurl/"
+      >
+        <p class="text-white opacity-90">
+          In this project, I developed API sandbox for the data enrichment for company API.
+          This API sandbox will be used by users to test things out in sandbox mode
+          so that users don't have to spend credits while testing things
+        </p>
+      </Portfolio>
+      
+      <Portfolio
+        name="Sapiengraph Job Monitoring"
+        stakeholder="Proxycurl"
+        date="2024 - 2025"
+        tags={['flask', 'python', 'websocket']}
+        image="sapiengraph.png"
+        url="https://sapiengraph.com/"
+      >
+        <p class="text-white opacity-90">
+          Sapiengraph is an integrated version of Proxycrul API.
+          In this project, I contributed to the bulk job monitoring feature. 
+          I also contributed to the spreadsheet integration of the proxycurl API
+          into sapiengraph and implemented email finder landing page
+        </p>
+      </Portfolio>
+
+      <Portfolio
+        name="UniLah Overseas Campus (UOC)"
+        stakeholder="UniLah"
+        date="2024"
+        tags={['react', 'nestjs', 'postgresql', 'payment']}
+        image="uoc.png"
+        url="https://uoc.myunilah.com/"
+      >
+        <p class="text-white opacity-90">
+          A job portal for employer to seek overseas students.
+          In this project, I managed all the frontend and backend. 
+          In this app, employer and student can manage their job application.
+          For employer, they also can mass message selected student by outreaching them via email
+        </p>
+      </Portfolio>
+
+      <Portfolio
+        name="UniLah Admin"
+        stakeholder="UniLah"
+        date="2024"
+        tags={['react', 'nestjs', 'postgresql', 'message-queue']}
+        image="admin-unilah.png"
+        url="https://admin.myunilah.com/"
+      >
+        <p class="text-white opacity-90">
+          Admin dashboard to manage all the content of UniLah platform.
+          In this project, I managed most of the backend and frontend. 
+          I also refactored the UI to the current UI and refactored the dashboard in general
+          to include the UOC as well
+        </p>
+      </Portfolio>
+
+      <Portfolio
+        name="UniLah App"
+        stakeholder="UniLah"
+        date="2024"
+        tags={['react-native', 'nestjs', 'postgresql']}
+        image="unilah-app.jpg"
+      >
+        <p class="text-white opacity-90">
+          UniLah App is a mobile app for students to attend university events and redeem some product deals.
+          In this project, I managed some feature of the backend. 
+          I also refactored some component of the app
+        </p>
+      </Portfolio>
+    </div>
+    <div id="personal-project-container" data-active="false" class="md:grid md:grid-cols-2 lg:grid-cols-3 flex flex-col items-center data-[active=false]:hidden">
       { projects.map((project, i) => (
         <Card 
           title={ project.data.title } 
@@ -39,11 +126,32 @@ const builtDate = projects.map(project => {
           stakeholder={ project.data.stakeholder } 
           builtDate={ builtDate[i] } 
           containsDemo={ project.data.containsDemo }
-          classname="mx-4 mb-4"
+          classname="mx-4 mb-4 group-[]:"
         >
           { project.data.description }
         </Card>
       ))}
     </div>
   </div>
+
+  <script>
+    const workPorto = document.getElementById('work-porto') as HTMLButtonElement
+    const personalProject = document.getElementById('personal-project') as HTMLButtonElement
+
+    const workPortoContainer = document.getElementById('work-porto-container') as HTMLDivElement
+    const personalProjectContainer = document.getElementById('personal-project-container') as HTMLDivElement
+
+    workPorto.onclick = () => {
+      personalProject.dataset.active = 'false'
+      workPorto.dataset.active = 'true'
+      personalProjectContainer.dataset.active = 'false'
+      workPortoContainer.dataset.active = 'true'
+    }
+    personalProject.onclick = () => {
+      personalProject.dataset.active = 'true'
+      workPorto.dataset.active = 'false'
+      personalProjectContainer.dataset.active = 'true'
+      workPortoContainer.dataset.active = 'false'
+    }
+  </script>
 </Main>
