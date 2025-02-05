@@ -11,6 +11,6 @@ import sitemap from "@astrojs/sitemap";
 // https://astro.build/config
 export default defineConfig({
   site: 'https://thoriqadillah.github.io',
-  base: '/cat-n-code/',
+  trailingSlash: 'never',
   integrations: [tailwind(), mdx(), sitemap()]
 });
