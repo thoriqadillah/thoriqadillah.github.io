@@ -13,6 +13,45 @@ sourceCode: https://github.com/thoriqadillah/rapid
 next: 'Essay Similarity'
 ---
 
-import ComingSoon from "@components/ComingSoon.astro";
+## The Motivation
+In windows, there is a powerful download manager called Internet Download Manager. This download manager obviously can perform regular download manager feature such as downloading a file, pause, resume, and cancel a download process. But, what interests me is how it can download a file in chunks. In user perspective, this may be a boring feature, because what? They only care that the file is downloaded, that's it. But in my opinion, this feature requires some technical knowledge behind it. And with this approach, I believe the download process will be seems if not actualy faster compared downloading the entire file at once. And because we split the file into chunks, if the download is failed at some point and if we want to resume that download process, we can just re download the error chunk and continue download the rest. And by that, this is my attempt to recreate that
 
-<ComingSoon/>
+## The Implementation
+### Design Phase
+To make the download manager as extensible as possible, we need to separate some service. Which is the downloader and the client. In other words, this is yet another server-client based application
+
+![design](/public/article-assets/design-rapid.svg)
+
+And because we design it this way, we can have some advantages:
+-  **More modular system**. This way, we can iterate faster, because if we do this, we can test the downloader enginer, and we can intergrate it with a simpler client, a CLI client, rather than building a whole desktop app
+-  **Faster development**. This is due to how modular our app is
+
+Here we want our download manager to have the following features: (I will limit list of feature for the sake of this article)
+-  Download a file from given link
+-  Pause, resume, restart, and cancel download process
+-  Download file in chunks
+-  Able to download multiple file concurrently
+-  Display the progress while downloading
+-  And many more...
+
+### The Challenge
+But, because we design it in modular way, now we need to figure out how the engine and the client communicate. There are few option that we can use to support local communication, gRPC, HTTP, unix socket, etc. And here, due to simplicity and there is no requirement for speed in communication, I choose the HTTP
+
+For streaming the download progress, we can use websocket to update the download progress live to all client. Because this application will work in localhost, I think we can safely broadcast the message from the websocket server to the websocket client
+
+## Implementation
+### Concurrent Download
+In order to donwload file in chunks, we need to split the file. To split it, we can use range header to specify which bytes we want to download. It's pretty simple. But it order to download them simultanously, we need to download them concurrently. Fortunately, it's pretty easy to work with concurrent process. But obviously we need to manage how much concurrent process we want. So I created worker pool so that I can better manage how much worker I use. And hopefuly if we use worker pool, we can customize them via setting or something.
+
+For the chunk itself, I store them in its own file so that if some error happened during the download process, i can read the file chunk and continue from the last written bytes. And when the chunks are downloaded, I can combine the chunks into one file again based on some predefined configuration, such as file name or something
+
+### Download Progress
+In go, there is a very useful interface called `io.Reader`. A lot of things implement this interface, such as file, http response body, etc. And because when we download something we use http request, the respose body is a `reader`. And we can wrap the response body in our own reader. This way, when we read the response body for certain bytes using `io.Copy`, we will notify a the watcher using `observer design pattern`, and use that with websocket to update the progress bar inside the download manager client
+
+### Pause, Resume, Restart and Cancel Download
+For pause and cancel it's pretty much the same. The name doesn't matter, because they have similar approach, which is stoping the download and that's it. The only difference is the next action. If we pause, most likely we want it to resume. But for cancel, we can only do restart. In other words, resume and restart is almost the same except the starting bytes that we need to download. For resume, we download from the last byte of the chunk. But for restart, we download from the start byte of the chunk. For example, a 1 MB file will be split into 2 chunks, 0 - 500 KB and 501 KB - 1 MB. For resume, if we pause in 300 KB for the first chunk, we need to download starting from 300 (or 301 I forgot), and then append that to the chunk file. But for restart, we download every chunk from the starting byte, 0 from first chunk, 501 KB for the second. All this can be implemented using `context` package and use that context with the http request
+
+All this we can combine it with HTTP framework such as fiber, echo, or something else to communicate with the client. We will also need a data layer to store user setting such as folder location for the download, and many other. For the data layer, I don't think we need a complicate one like sqlite. And I think the data will not be relational, so embeded database is enough for me [bbolt](https://github.com/etcd-io/bbolt)
+
+## Conclusion
+This was a huge project for me, because it thaught me system design, concurrent programming, and go in general. But this project was too huge, I wasn't able to complete this project, but it has some shape so you can run it. Maybe in the future I will come back to this project again and actually ship it or something. Because there are a lot of things to cover, such as maybe multi window, notification, system tray, background process for each platform (Windows, Linux and MacOS), etc
