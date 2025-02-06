@@ -32,15 +32,15 @@ const builtDate = projects.map(project => {
     </p>
   </Section>
   <div class="flex gap-5 justify-center my-10">
-    <button data-active="true" id="work-porto" class="text-white px-4 py-2 rounded-full data-[active=true]:bg-second data-[active=true]:text-darker font-semibold">
+    <button data-active="true" id="work-porto" class="transition-all duration-300 text-white px-4 py-2 rounded-full data-[active=true]:bg-second data-[active=true]:text-darker font-semibold">
       <p>Work Portfolio</p>
     </button>
-    <button data-active="false" id="personal-project" class="text-white px-4 py-2 rounded-full data-[active=true]:bg-second data-[active=true]:text-darker font-semibold">
+    <button data-active="false" id="personal-project" class="transition-all duration-300 text-white px-4 py-2 rounded-full data-[active=true]:bg-second data-[active=true]:text-darker font-semibold">
       <p>Personal Projects</p>
     </button>
   </div>
   <div class='max-w-7xl mt-10 mx-auto'>
-    <div id="work-porto-container" data-active="true" class="flex flex-col gap-10 data-[active=false]:hidden">
+    <div id="work-porto-container" data-active="true" class="px-4 flex flex-col gap-10 data-[active=false]:hidden">
       <Portfolio
         name="Proxycurl Sandbox API"
         stakeholder="Proxycurl"

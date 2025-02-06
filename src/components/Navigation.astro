@@ -11,7 +11,7 @@ const { href, classname, ...props } = Astro.props
 const { pathname } = Astro.url
 
 const setCurrent = href === pathname ? 'font-bold text-main' : 'hover:text-second'
-const style = `text-bright px-3 py-2 font-body hover:no-underline ${ classname } ${ setCurrent }`
+const style = `text-bright px-3 py-2 hover:no-underline ${ classname } ${ setCurrent }`
 ---
 
 <Link {...props} href={ href } classname={ style }>

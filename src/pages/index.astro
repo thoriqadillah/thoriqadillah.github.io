@@ -5,6 +5,7 @@ import Link from "@components/Link.astro";
 import Tag from "@components/Tag.astro";
 import Testimony from "@components/Testimony.astro";
 import Portfolio from "@components/Portfolio.astro";
+import H2 from "@components/H2.astro";
 
 const tags = ['golang', 'node-js', 'typescript', 'javascript', 'python', 'vue', 'svelte', 'laravel', 'sql', 'nosql']
 ---
@@ -41,13 +42,20 @@ const tags = ['golang', 'node-js', 'typescript', 'javascript', 'python', 'vue', 
     </div>
   </div>
   
-  <div class="px-4 md:px-8 lg:px-12 lg:my-8 max-w-7xl mx-auto">
-    <H3 color='bright' classname="py-4">Testimony</H3>
+  <div class="px-4 md:px-8 lg:px-12 lg:my-8 max-w-7xl mx-auto pt-[3rem]">
+    <div class="py-4">
+      <H3 color="bright" classname="pb-2">📝</H3>
+      <H2 color='bright'>Testimony</H2>
+      <p class="text-white pb-1">
+        Reviews from the people I've worked with
+      </p>
+    </div>
     <div class="flex flex-col md:flex-row gap-5">
       <Testimony name="Shawn Tham" role="CEO of UniLah">
         <p class="text-gray-200">
           Thoriq has been a good engineer in UniLah. 
-          He has good work ethic, on time when delivering things, and has good communication overall
+          He has good work ethic, on time when delivering things, and has good communication overall.
+          We are greatful to have him
         </p>
       </Testimony>
       <Testimony name="Alya Mohd" role="Growth and Innovation Lead @ UniLah">
@@ -59,8 +67,14 @@ const tags = ['golang', 'node-js', 'typescript', 'javascript', 'python', 'vue', 
     </div>
   </div>
 
-  <div class="px-4 md:px-8 lg:px-12 lg:my-8 max-w-7xl mx-auto">
-    <H3 color='bright' classname="py-4 mt-[5rem]">Work Portfolio</H3>
+  <div class="px-4 md:px-8 lg:px-12 lg:my-8 max-w-7xl mx-auto pt-[5rem]">
+    <div class="py-4">
+      <H3 color="bright" classname="pb-2">💼</H3>
+      <H2 color='bright'>Work Portfolio</H2>
+      <p class="text-white pb-1">
+        Some of the projects I've worked on
+      </p>
+    </div>
     <div class="flex flex-col gap-10">
       <Portfolio
         name="Proxycurl Sandbox API"
