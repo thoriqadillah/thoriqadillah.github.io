@@ -55,7 +55,7 @@ const url = Astro.url
 
 		<title>{title}</title>
 	</head>
-	<body class="pb-2 bg-black">
+	<body class="pb-2 bg-black prose-p:font-body prose-p:text-opacity-90">
     <!-- Google Tag Manager (noscript) -->
     <noscript>
       <iframe 
@@ -68,7 +68,7 @@ const url = Astro.url
     <!-- End Google Tag Manager (noscript) -->
 
 		<Header/>
-		<main class="prose-p:font-body prose-p:text-opacity-90">
+		<main>
 			<slot/>
 		</main>
 		<Footer/>
