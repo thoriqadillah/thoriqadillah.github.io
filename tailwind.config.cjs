@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
@@ -13,6 +15,9 @@ module.exports = {
 				'second': "#d7385e",
 				'main': '#edc988'
 			},
+      fontFamily: {
+        body: ['Geist Variable', ...defaultTheme.fontFamily.sans]
+      }
 		},
 	},
 	plugins: [

@@ -1,4 +1,5 @@
 ---
+import 'non.geist'
 import Header from "./Header.astro";
 import Footer from "./Footer.astro";
 
@@ -67,7 +68,7 @@ const url = Astro.url
     <!-- End Google Tag Manager (noscript) -->
 
 		<Header/>
-		<main>
+		<main class="prose-p:font-body prose-p:text-opacity-90">
 			<slot/>
 		</main>
 		<Footer/>
