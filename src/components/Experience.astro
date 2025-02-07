@@ -1,0 +1,56 @@
+---
+import H4 from "./H4.astro";
+
+const borderStyles = {
+  topRightCurve: 'rounded-tr-lg border-r-4 border-t-4 top-1 right-1',
+  topRightStraight: 'border-t-4 top-1 right-1',
+  bottomRightCurve: 'rounded-br-lg border-r-4 border-b-4 bottom-1 right-1',
+  bottomRightStraight: 'border-b-4 bottom-1 right-1',
+}
+
+interface Props {
+  border: string
+  company: string
+  type: string
+  location: string
+  image?: string
+  note?: string | null
+  roles: {
+    name: string
+    date: string
+  }[]
+}
+
+const { company, type, location, image, roles, note, border } = Astro.props
+---
+<div class="p-4 border rounded-lg min-h-[242px] relative">
+  <div class={`w-10 h-10 border-main ${borderStyles[border as keyof typeof borderStyles]} absolute`}></div>
+  <div class="flex gap-5">
+    {image
+      ? <img src={image} alt="" class="w-20 h-20 rounded-md object-cover">
+      : <div class="w-20 h-20 rounded-md border-2 bg-white bg-opacity-30 border-opacity-70 items-center flex justify-center">
+        <img src="https://api.iconify.design/lucide:building-2.svg?color=%23ffffff" alt="" width="30" class="opacity-80 mx-auto">
+      </div>
+    }
+    <div>
+      <H4 color="bright" title={note}>{company} {note && <span class="text-red-500"> *</span>}</H4>
+      <p class="text-white">{type}</p>
+      <p class="text-white">{location}</p>
+    </div>
+  </div>
+  <ol class=" overflow-hidden">
+    {roles.map((role, i) => (
+      <li data-last={i !== roles.length - 1} class="relative flex-1 after:content-[''] after:w-0.5  data-[last=true]:after:h-full mx-auto after:bg-white after:bg-opacity-90 after:inline-block after:absolute after:-bottom-8 after:left-4 lg:after:left-5">
+        <div class="flex items-center font-medium w-full">
+          <span class="w-3 h-3 bg-main border-2 border-transparent rounded-full flex justify-center items-center mr-3 ml-[0.7rem] lg:ml-[0.90rem] text-sm text-white lg:w-3 lg:h-3">
+            <img src="https://api.iconify.design/radix-icons:dot-filled.svg?color=%23ffffff" alt="">
+          </span>
+          <div class="pt-4">
+            <H4 color="bright">{role.name}</H4>
+            <p class="text-white opacity-70 text-sm">{role.date}</p>
+          </div>
+        </div>
+      </li>
+    ))}
+  </ol>
+</div>

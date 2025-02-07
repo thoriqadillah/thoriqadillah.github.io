@@ -1,0 +1,89 @@
+[
+  {
+    "company": "Proxycurl",
+    "type": "Full Time",
+    "border": "topRightStraight",
+    "location": "Singapore • Remote",
+    "image": "proxycurl-logo.png",
+    "note": "Terminated early because the company was shutting down due to having legal issue with another company",
+    "roles": [
+      {
+        "name": "Software Engineer",
+        "date": "Dec 2024 - Jan 2025"
+      }
+    ]
+  },
+  {
+    "company": "UniLah. The Student App",
+    "type": "Full Time",
+    "border": "topRightStraight",
+    "location": "Malaysia • Remote",
+    "image": "unilah.jpg",
+    "note": null,
+    "roles": [
+      {
+        "name": "Technical Lead",
+        "date": "May 2024 - Nov 2024"
+      },
+      {
+        "name": "Software Engineer",
+        "date": "Mar 2024 - Nov 2024"
+      }
+    ]
+  },
+  {
+    "company": "VISUWISU",
+    "type": "Part Time",
+    "border": "topRightCurve",
+    "location": "Indonesia • Remote",
+    "image": "visuwisu.jpg",
+    "note": null,
+    "roles": [
+      {
+        "name": "Backend Developer",
+        "date": "Feb 2024 - Mar 2024"
+      }
+    ]
+  },
+  {
+    "company": "CMLABS",
+    "type": "Internship",
+    "border": "bottomRightStraight",
+    "location": "Malang, Indonesia",
+    "image": "cmlabs.ico",
+    "note": null,
+    "roles": [
+      {
+        "name": "Backend Developer",
+        "date": "Sep 2021 - Dec 2021"
+      }
+    ]
+  },
+  {
+    "company": "Nandev",
+    "type": "Part Time",
+    "border": "bottomRightStraight",
+    "location": "Indonesia • Remote",
+    "image": "nandev.png",
+    "note": null,
+    "roles": [
+      {
+        "name": "Backend Developer",
+        "date": "Aug 2022 - Nov 2022"
+      }
+    ]
+  },
+  {
+    "company": "PT Wiwlatikta Jaya Abadi",
+    "type": "Full Time",
+    "border": "bottomRightCurve",
+    "location": "Malang, Indonesia",
+    "note": null,
+    "roles": [
+      {
+        "name": "Software Developer",
+        "date": "Feb 2023 - Feb 2024"
+      }
+    ]
+  }
+]

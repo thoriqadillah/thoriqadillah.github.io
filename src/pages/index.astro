@@ -4,8 +4,9 @@ import H3 from "@components/H3.astro";
 import Link from "@components/Link.astro";
 import Tag from "@components/Tag.astro";
 import Testimony from "@components/Testimony.astro";
-import Portfolio from "@components/Portfolio.astro";
 import H2 from "@components/H2.astro";
+import Experience from "@components/Experience.astro";
+import workExperience from "@data/work-experience.json";
 
 const tags = ['golang', 'node-js', 'typescript', 'javascript', 'python', 'vue', 'svelte', 'laravel', 'sql', 'nosql']
 ---
@@ -70,13 +71,24 @@ const tags = ['golang', 'node-js', 'typescript', 'javascript', 'python', 'vue', 
   <div class="px-4 md:px-8 lg:px-12 lg:my-8 max-w-7xl mx-auto pt-[5rem]">
     <div class="py-4">
       <H3 color="bright" classname="pb-2">💼</H3>
-      <H2 color='bright'>Work Portfolio</H2>
+      <H2 color='bright'>Work Experiences</H2>
       <p class="text-white pb-1">
-        Some of the projects I've worked on
+        Summary of my work experiences. Full list of my work experiences can be found in my <a href="resume.pdf" class="text-second inline-flex gap-1 items-center">resume <img src="https://api.iconify.design/radix-icons:arrow-top-right.svg?color=%23d7385e" alt="" width="15"></a>
       </p>
     </div>
-    <div class="flex flex-col gap-10">
-      <Portfolio
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {workExperience.map((experience) => (
+        <Experience 
+          border={experience.border}
+          company={experience.company}
+          type={experience.type}
+          location={experience.location}
+          roles={experience.roles}
+          note={experience.note}
+          image={experience.image}
+        />
+      ))}
+      <!-- <Portfolio
         name="Proxycurl Sandbox API"
         stakeholder="Proxycurl"
         date="2024 - 2025"
@@ -151,7 +163,7 @@ const tags = ['golang', 'node-js', 'typescript', 'javascript', 'python', 'vue', 
           In this project, I managed some feature of the backend. 
           I also refactored some component of the app
         </p>
-      </Portfolio>
+      </Portfolio> -->
     </div>
   </div>
 </Main>

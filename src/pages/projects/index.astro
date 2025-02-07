@@ -5,7 +5,7 @@ import Card from "@components/Card.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 import { MONTH } from "src/types/date";
 import Portfolio from "@components/Portfolio.astro";
-import workPortfolio from '../../data/work-portfolio.json'
+import workPortfolio from '@data/work-portfolio.json'
 
 const projects = (await getCollection('projects')).sort((a: CollectionEntry<'projects'>, b: CollectionEntry<'projects'>) => {
   return b.data.projectFinish.setHours(0,0,0,0) - a.data.projectFinish.setHours(0,0,0,0)
