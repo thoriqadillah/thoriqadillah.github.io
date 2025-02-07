@@ -1,17 +1,9 @@
 ---
 import H4 from "./H4.astro";
 
-const borderStyles = {
-  topRightCurve: 'rounded-tr-lg border-r-4 border-t-4 top-1 right-1',
-  topRightStraight: 'border-t-4 top-1 right-1',
-  bottomRightCurve: 'rounded-br-lg border-r-4 border-b-4 bottom-1 right-1',
-  bottomRightStraight: 'border-b-4 bottom-1 right-1',
-}
-
 interface Props {
-  border: string
+  id: number
   company: string
-  tags: string[]
   type: string
   location: string
   image?: string
@@ -22,11 +14,11 @@ interface Props {
   }[]
 }
 
-const { company, type, location, image, roles, note, border, tags } = Astro.props
+const { company, type, location, image, roles, note, id } = Astro.props
 ---
 <div class="p-4 border rounded-lg min-h-[242px] relative flex flex-col justify-between">
+  <p class="text-white opacity-70 text-xs absolute top-2 right-3">{id}</p>
   <div>
-    <div class={`w-10 h-10 border-main ${borderStyles[border as keyof typeof borderStyles]} absolute`}></div>
     <div class="flex gap-5">
       {image
         ? <img src={image} alt="" class="w-20 h-20 rounded-md object-cover">

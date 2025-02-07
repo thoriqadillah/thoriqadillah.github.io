@@ -52,17 +52,16 @@
     ]
   },
   {
-    "company": "CMLABS",
-    "type": "Internship",
-    "border": "bottomRightStraight",
+    "company": "PT Wiwlatikta Jaya Abadi",
+    "type": "Full Time",
+    "border": "bottomRightCurve",
     "location": "Malang, Indonesia",
-    "image": "cmlabs.ico",
     "note": null,
-    "tags": ["laravel", "php", "express"],
+    "tags": ["golang", "typescript", "vue", "svelte", "system-design", "design-pattern"],
     "roles": [
       {
-        "name": "Backend Developer",
-        "date": "Sep 2021 - Dec 2021"
+        "name": "Software Developer",
+        "date": "Feb 2023 - Feb 2024"
       }
     ]
   },
@@ -82,16 +81,17 @@
     ]
   },
   {
-    "company": "PT Wiwlatikta Jaya Abadi",
-    "type": "Full Time",
-    "border": "bottomRightCurve",
+    "company": "CMLABS",
+    "type": "Internship",
+    "border": "bottomRightStraight",
     "location": "Malang, Indonesia",
+    "image": "cmlabs.ico",
     "note": null,
-    "tags": ["golang", "typescript", "vue", "svelte", "system-design", "design-pattern"],
+    "tags": ["laravel", "php", "express"],
     "roles": [
       {
-        "name": "Software Developer",
-        "date": "Feb 2023 - Feb 2024"
+        "name": "Backend Developer",
+        "date": "Sep 2021 - Dec 2021"
       }
     ]
   }

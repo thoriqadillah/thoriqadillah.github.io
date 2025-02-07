@@ -76,9 +76,9 @@ const tags = ['golang', 'nodejs', 'typescript', 'python', 'vue', 'react', 'php',
         Summary of my work experiences. Full list of my work experiences can be found in my <a href="resume.pdf" class="text-second inline-flex gap-1 items-center">resume <img src="https://api.iconify.design/radix-icons:arrow-top-right.svg?color=%23d7385e" alt="" width="15"></a>
       </p>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-      {workExperience.map((experience) => (
-        <Experience {...experience} />
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {workExperience.map((experience, i) => (
+        <Experience {...experience} id={i+1} />
       ))}
     </div>
   </div>
