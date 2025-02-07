@@ -6,6 +6,7 @@
     "location": "Singapore • Remote",
     "image": "proxycurl-logo.png",
     "note": "Terminated early because the company was shutting down due to having legal issue with another company",
+    "tags": ["python", "flask", "data-pipeline", "websocket"],
     "roles": [
       {
         "name": "Software Engineer",
@@ -20,6 +21,10 @@
     "location": "Malaysia • Remote",
     "image": "unilah.jpg",
     "note": null,
+    "tags": [
+      "nestjs", "react", "react-native", "typescript", "message-queue", "gcp", "ci/cd",
+      "leadership", "system-design"
+    ],
     "roles": [
       {
         "name": "Technical Lead",
@@ -38,6 +43,7 @@
     "location": "Indonesia • Remote",
     "image": "visuwisu.jpg",
     "note": null,
+    "tags": ["express", "system-design", "design-pattern", "typescript"],
     "roles": [
       {
         "name": "Backend Developer",
@@ -52,6 +58,7 @@
     "location": "Malang, Indonesia",
     "image": "cmlabs.ico",
     "note": null,
+    "tags": ["laravel", "php", "express"],
     "roles": [
       {
         "name": "Backend Developer",
@@ -66,6 +73,7 @@
     "location": "Indonesia • Remote",
     "image": "nandev.png",
     "note": null,
+    "tags": ["laravel", "livewire", "php", "express"],
     "roles": [
       {
         "name": "Backend Developer",
@@ -79,6 +87,7 @@
     "border": "bottomRightCurve",
     "location": "Malang, Indonesia",
     "note": null,
+    "tags": ["golang", "typescript", "vue", "svelte", "system-design", "design-pattern"],
     "roles": [
       {
         "name": "Software Developer",

@@ -8,7 +8,7 @@ import H2 from "@components/H2.astro";
 import Experience from "@components/Experience.astro";
 import workExperience from "@data/work-experience.json";
 
-const tags = ['golang', 'node-js', 'typescript', 'javascript', 'python', 'vue', 'svelte', 'laravel', 'sql', 'nosql']
+const tags = ['golang', 'nodejs', 'typescript', 'python', 'vue', 'react', 'php', 'laravel', 'postgresql']
 ---
 
 <Main title='Thoriq Adillah' type="website" description="Hi there, I am a Software Developer with 2 years of experience based on Surakarta, Indonesia. I love being software developer because i love solving problem with coding">
@@ -78,92 +78,8 @@ const tags = ['golang', 'node-js', 'typescript', 'javascript', 'python', 'vue', 
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       {workExperience.map((experience) => (
-        <Experience 
-          border={experience.border}
-          company={experience.company}
-          type={experience.type}
-          location={experience.location}
-          roles={experience.roles}
-          note={experience.note}
-          image={experience.image}
-        />
+        <Experience {...experience} />
       ))}
-      <!-- <Portfolio
-        name="Proxycurl Sandbox API"
-        stakeholder="Proxycurl"
-        date="2024 - 2025"
-        tags={['flask', 'python', 'data-pipeline']}
-        image="proxycurl.png"
-        url="https://nubela.co/proxycurl/"
-      >
-        <p class="text-white">
-          In this project, I developed API sandbox for the data enrichment for company API.
-          This API sandbox will be used by users to test things out in sandbox mode
-          so that users don't have to spend credits while testing things
-        </p>
-      </Portfolio>
-      
-      <Portfolio
-        name="Sapiengraph Job Monitoring"
-        stakeholder="Proxycurl"
-        date="2024 - 2025"
-        tags={['flask', 'python', 'websocket']}
-        image="sapiengraph.png"
-        url="https://sapiengraph.com/"
-      >
-        <p class="text-white">
-          Sapiengraph is an integrated version of Proxycrul API.
-          In this project, I contributed to the bulk job monitoring feature. 
-          I also contributed to the spreadsheet integration of the proxycurl API
-          into sapiengraph and implemented email finder landing page
-        </p>
-      </Portfolio>
-
-      <Portfolio
-        name="UniLah Overseas Campus (UOC)"
-        stakeholder="UniLah"
-        date="2024"
-        tags={['react', 'nestjs', 'postgresql', 'payment']}
-        image="uoc.png"
-        url="https://uoc.myunilah.com/"
-      >
-        <p class="text-white">
-          A job portal for employer to seek overseas students.
-          In this project, I managed all the frontend and backend. 
-          In this app, employer and student can manage their job application.
-          For employer, they also can mass message selected student by outreaching them via email
-        </p>
-      </Portfolio>
-
-      <Portfolio
-        name="UniLah Admin"
-        stakeholder="UniLah"
-        date="2024"
-        tags={['react', 'nestjs', 'postgresql', 'message-queue']}
-        image="admin-unilah.png"
-        url="https://admin.myunilah.com/"
-      >
-        <p class="text-white">
-          Admin dashboard to manage all the content of UniLah platform.
-          In this project, I managed most of the backend and frontend. 
-          I also refactored the UI to the current UI and refactored the dashboard in general
-          to include the UOC as well
-        </p>
-      </Portfolio>
-
-      <Portfolio
-        name="UniLah App"
-        stakeholder="UniLah"
-        date="2024"
-        tags={['react-native', 'nestjs', 'postgresql']}
-        image="unilah-app.jpg"
-      >
-        <p class="text-white">
-          UniLah App is a mobile app for students to attend university events and redeem some product deals.
-          In this project, I managed some feature of the backend. 
-          I also refactored some component of the app
-        </p>
-      </Portfolio> -->
     </div>
   </div>
 </Main>
