@@ -48,7 +48,7 @@ const builtDate = projects.map(project => {
         </Portfolio>
       ))}
     </div>
-    <div id="personal-project-container" data-active="false" class="md:grid md:grid-cols-2 lg:grid-cols-3 flex flex-col items-center data-[active=false]:hidden">
+    <div id="personal-project-container" data-active="false" class="md:grid md:grid-cols-2 gap-5 lg:grid-cols-3 flex flex-col items-center data-[active=false]:hidden">
       { projects.map((project, i) => (
         <Card 
           title={ project.data.title } 
@@ -57,7 +57,6 @@ const builtDate = projects.map(project => {
           stakeholder={ project.data.stakeholder } 
           builtDate={ builtDate[i] } 
           containsDemo={ project.data.containsDemo }
-          classname="mx-4 mb-4 group-[]:"
         >
           { project.data.description }
         </Card>

@@ -18,13 +18,12 @@ const blogs = (await getCollection('blogs')).sort((a, b) => {
     </p>
   </Section>
   <div class='max-w-7xl mt-10 mx-auto'>
-    <div class="md:grid md:grid-cols-2 lg:grid-cols-3 flex flex-col items-center">
+    <div class="md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 flex flex-col items-center">
       { blogs.map((blog, i) => (
         <Card 
           title={ blog.data.title } 
           href={ '/blogs/' + blog.slug } 
           builtDate={ format(blog.data.date, 'dd MMM yyyy') } 
-          classname="mx-4 mb-4"
         >
           { blog.data.description }
         </Card>
