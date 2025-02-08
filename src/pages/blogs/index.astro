@@ -17,7 +17,7 @@ const blogs = (await getCollection('blogs')).sort((a, b) => {
       Welcome to my blog! Here I share my thoughts, experiences, and insights about software development, tech trends, and my journey as a developer.
     </p>
   </Section>
-  <div class='max-w-7xl mt-10 mx-auto'>
+  <div class='max-w-7xl mt-10 mx-auto px-4'>
     <div class="md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 flex flex-col items-center">
       { blogs.map((blog, i) => (
         <Card 
