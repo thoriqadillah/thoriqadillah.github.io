@@ -6,7 +6,7 @@
     "tags": ["flask", "python", "data-pipeline"],
     "image": "proxycurl.png",
     "url": "https://nubela.co/proxycurl/",
-    "description": "In this project, I developed API sandbox for the data enrichment for company API. This API sandbox will be used by users to test things out in sandbox mode so that users don't have to spend credits while testing things"
+    "description": "In this project, I developed sandbox mode for Proxycurl's API endpoints. This API sandbox will be used by users to test things out in sandbox mode so that users don't have to spend credits while testing things. I also build its data pipeline to seamless the integration with the live mode"
   },
   {
     "name": "Sapiengraph Job Monitoring",
@@ -15,7 +15,7 @@
     "tags": ["flask", "python", "websocket"],
     "image": "sapiengraph.png",
     "url": "https://sapiengraph.com/",
-    "description": "Sapiengraph is an integrated version of Proxycrul API. In this project, I contributed to the bulk job monitoring feature. I also contributed to the spreadsheet integration of the proxycurl API into sapiengraph and implemented email finder landing page"
+    "description": "Sapiengraph is an integrated version of Proxycrul API. In this project, I contributed to the bulk job monitoring feature, contributed to the sync feature for spreadsheet integration into sapiengraph, and contributed to the email finder feature"
   },
   {
     "name": "UniLah Overseas Campus (UOC)",
