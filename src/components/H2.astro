@@ -16,7 +16,7 @@ interface Props extends HTMLAttributes<'h2'> {
 
 const { color, classname, ...props } = Astro.props
 
-const style = `text-4xl font-black ${ textcolor[color] } ${ classname }`
+const style = `text-4xl font-bold ${ textcolor[color] } ${ classname }`
 ---
 
 <h2 {...props} class={ style }>

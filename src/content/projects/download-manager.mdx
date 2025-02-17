@@ -39,7 +39,6 @@ But, because we design it in modular way, now we need to figure out how the engi
 
 For streaming the download progress, we can use websocket to update the download progress live to all client. Because this application will work in localhost, I think we can safely broadcast the message from the websocket server to the websocket client
 
-## Implementation
 ### Concurrent Download
 In order to donwload file in chunks, we need to split the file. To split it, we can use range header to specify which bytes we want to download. It's pretty simple. But it order to download them simultanously, we need to download them concurrently. Fortunately, it's pretty easy to work with concurrent process. But obviously we need to manage how much concurrent process we want. So I created worker pool so that I can better manage how much worker I use. And hopefuly if we use worker pool, we can customize them via setting or something.
 
