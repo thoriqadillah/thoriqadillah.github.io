@@ -32,7 +32,7 @@ const prevProject = prev?.toLowerCase().split(' ').join('-') ?? ''
       <div class="flex justify-between items-center">
         {stakeholder && <p class="text-bright text-sm font-bold inline border border-bright rounded-md p-2">{ stakeholder }</p>}
         {sourceCode && <Link id={`source-code:${Astro.url.pathname.split('/').pop()}`} href={ sourceCode } newtab='1'>
-          <img src="/github.svg" alt="source code" title="Source code of the project">
+          <img src="https://api.iconify.design/mdi:github.svg?color=%23f8efd4" alt="source code" title="Source code of the project">
         </Link>}
       </div>
       <H1 color="main" classname="my-3">{ title }</H1>
